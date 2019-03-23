@@ -61,7 +61,7 @@ export default class CarForm extends Component {
     </Col>
     <Col md={3}>
       <FormGroup>
-        <Label for="vin">VIN Number</Label>
+        <Label for="vin">VIN #</Label>
         <Input type="vin" name="vin" id="vin" placeholder="" />
       </FormGroup>
     </Col>
