@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import CarForm from '../elements/CarForm';
 import Logo from './images/CARMATE-Logo.png';
 import MaintIcon from './images/maint-sm.png';
 
+class Dashboard extends Component {
+  // state = {calls: []};
 
-const Dashboard = () => {
+  render() {
+    
   return (
     <div>
     <Navbar bg="dark" variant="dark">
@@ -26,6 +29,7 @@ const Dashboard = () => {
 
     </div>
   );
+};
 };
 
 export default Dashboard;
