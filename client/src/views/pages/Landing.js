@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import CarForm from '../elements/CarForm';
 import Logo from './images/CARMATE-Logo.png';
 
-const Landing = () => {
+
+class Landing extends Component {
+  // state = {calls: []};
+
+  render() {
+    
+
+
   return (
     <div>
     <Navbar bg="dark" variant="dark">
@@ -21,9 +28,11 @@ const Landing = () => {
 
 
 <CarForm/>
+{/* <LandingRender/> */}
 
     </div>
   );
 };
+}
 
 export default Landing;
