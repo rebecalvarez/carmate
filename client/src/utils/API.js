@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASEURL = 'http://api.carmd.com/v3.0/fields?';
+const BASEURL = 'https://api.carmd.com/v3.0/fields?';
 const AUTH_KEY = `Basic ${process.env.REACT_APP_CARMD_AUTH_KEY}`;
 const PARTNER_TOKEN = process.env.REACT_APP_CARMD_PARTNER_TOKEN;
 
@@ -20,7 +20,7 @@ export default {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: AUTH_KEY,
+        Authorization: 'AUTH_KEY',
         'Partner-Token': PARTNER_TOKEN,
       },
     });
