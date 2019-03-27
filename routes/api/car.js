@@ -7,7 +7,9 @@ const PARTNER_TOKEN = process.env.REACT_APP_CARMD_PARTNER_TOKEN;
 
 // Matches with "/api/car/fields"
 router.get('/fields', (req, res) => {
-  const queryURL = BASEURL + 'vin=1GNALDEK9FZ108495&' + 'mileage=55000';
+  const vin = 'vin=1GNALDEK9FZ108495&';
+  const mileage = 'mileage=55000';
+  const queryURL = BASEURL + vin + mileage;
   axios
     .get(queryURL, {
       headers: {
