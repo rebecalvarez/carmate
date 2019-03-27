@@ -1,5 +1,6 @@
 // Declaring express
 const express = require('express');
+require('dotenv').config();
 
 // Other dependencies
 const mongoose = require('mongoose');
@@ -19,7 +20,9 @@ app.use(routes);
 
 // Connect to the Mongo DB
 // IAN NEEDS TO REPLACE MONGODB DB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/reactreadinglist');
+mongoose.connect(
+  process.env.MONGODB_URI || 'mongodb://localhost/reactreadinglist'
+);
 
 // Start the API server
 app.listen(PORT, function() {
