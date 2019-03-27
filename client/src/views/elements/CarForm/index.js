@@ -15,7 +15,7 @@ export default class CarForm extends Component {
 // Year
 // Make
 // Model
-// Milage
+// Mileage
 // OR
 // VIN
 
@@ -77,7 +77,7 @@ export default class CarForm extends Component {
   </Row>
   <Row>
     <Col className="spacing">
-  <Button>Update Vehicle</Button>
+  <Button className="button-style">Update Vehicle</Button>
   </Col>
   </Row>
   </Col>
