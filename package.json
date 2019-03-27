@@ -46,6 +46,9 @@
     "react-bootstrap": "^1.0.0-beta.5",
     "react-dom": "^16.8.5",
     "react-final-form": "^4.1.0",
+    "react-geocode": "^0.1.2",
+    "react-google-autocomplete": "^1.0.18",
+    "react-google-maps": "^9.4.5",
     "validator": "^10.11.0"
   }
 }
