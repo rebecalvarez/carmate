@@ -1,10 +1,10 @@
 {
-  "name": "vibe-react",
+  "name": "carmate-app",
   "version": "1.0.1",
-  "description": "Vibe Dashboard React Theme",
-  "author": "Nice Dash",
-  "homepage": "http://nicedash.com",
-  "copyright": "Copyright 2019 Nice Dash",
+  "description": "CarMate App - about vehicle information",
+  "author": "Nic May, Ian Bunn, Rebeca Dodero, Harpal Assi",
+  "homepage": "http://carmate.info",
+  "copyright": "Copyright 2019 CARMATE",
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",

@@ -1,7 +1,7 @@
 {
   "name": "mern",
   "version": "1.0.0",
-  "description": "",
+  "description": "CarMate App - about vehicle information",
   "main": "server.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
@@ -43,6 +43,7 @@
     "mongoose": "^5.3.16",
     "prop-types": "^15.7.2",
     "react-bootstrap": "^1.0.0-beta.5",
+    "react-dom": "^16.8.5",
     "react-final-form": "^4.1.0",
     "react-geocode": "^0.1.2",
     "react-google-autocomplete": "^1.0.18",
