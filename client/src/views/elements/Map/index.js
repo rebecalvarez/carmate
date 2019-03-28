@@ -2,7 +2,6 @@
 // import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow, Marker } from "react-google-maps";
 // import Geocode from "react-geocode";
 // import Autocomplete from 'react-google-autocomplete';
-// Geocode.setApiKey("AIzaSyCb6tYLQ-O1lo0s8Hm8Ya2zaEDvV1FqhB4");
 // Geocode.enableDebug();
 
 // class Map extends Component {
