@@ -6,6 +6,7 @@
   "homepage": "http://carmate.info",
   "copyright": "Copyright 2019 CARMATE",
   "private": true,
+  "proxy": "http://localhost:3001/",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "chart.js": "^2.7.3",

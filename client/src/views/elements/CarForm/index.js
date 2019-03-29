@@ -1,89 +1,100 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Button, Form, FormGroup, Label, Input, Col, Row } from 'reactstrap';
-import "./style.css";
+import './style.css';
 
+const CarForm = props => {
+  return (
+    // Year
+    // Make
+    // Model
+    // Mileage
+    // OR
+    // VIN
+    <div>
+      <Form className="form-container">
+        <Col md={{ size: 6, offset: 3 }}>
+          <Row>
+            {' '}
+            <Col className="spacing">Please fill out the following information to update your vehicle</Col>
+          </Row>
+          <Row form="true">
+            <Col md={3}>
+              <FormGroup>
+                <Label for="Year">Year</Label>
+                <Input type="year" name="year" id="year" onChange={props.onChange} value={props.year} placeholder="" />
+              </FormGroup>
+            </Col>
+            <Col md={3}>
+              <FormGroup>
+                <Label for="Make">Make</Label>
+                <Input type="make" name="make" id="make" onChange={props.onChange} value={props.make} placeholder="" />
+              </FormGroup>
+            </Col>
+            <Col md={3}>
+              <FormGroup>
+                <Label for="Model">Model</Label>
+                <Input
+                  type="model"
+                  name="model"
+                  id="model"
+                  onChange={props.onChange}
+                  value={props.model}
+                  placeholder=""
+                />
+              </FormGroup>
+            </Col>
+            <Col md={3}>
+              <FormGroup>
+                <Label for="Mileage">Mileage</Label>
+                <Input
+                  type="mileage"
+                  name="mileage"
+                  id="mileage"
+                  onChange={props.onChange}
+                  value={props.mileage}
+                  placeholder=""
+                />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col className="spacing">OR</Col>
+          </Row>
 
-export default class CarForm extends Component {
-  constructor() {
-    super();
-    this.state = { }
-  }
+          <Row form="true">
+            <Col md={3} />
+            <Col md={3}>
+              <FormGroup>
+                <Label for="vin">VIN #</Label>
+                <Input type="vin" name="vin" id="vin" onChange={props.onChange} value={props.vin} placeholder="" />
+              </FormGroup>
+            </Col>
+            <Col md={3}>
+              <FormGroup>
+                <Label for="Mileage">Mileage</Label>
+                <Input
+                  type="mileage"
+                  name="mileage"
+                  onChange={props.onChange}
+                  value={props.mileage}
+                  id="mileage"
+                  placeholder=""
+                />
+              </FormGroup>
+            </Col>
+            <Col md={3} />
+          </Row>
+          <Row>
+            <Col className="spacing">
+              <Button className="button-style" onClick={props.handleFormSubmit}>
+                Update Vehicle
+              </Button>
+            </Col>
+          </Row>
+        </Col>
+      </Form>
+    </div>
+  );
+};
 
-  render() {
-    return (
-
-// Year
-// Make
-// Model
-// Mileage
-// OR
-// VIN
-
-<Form className="form-container">
-  <Col md={{ size: 6, offset: 3 }}>
-  <Row> <Col className="spacing">Please fill out the following information to update your vehicle</Col></Row>
-  <Row form="true">
-    <Col md={3}>
-  
-      <FormGroup>
-        <Label for="Year">Year</Label>
-        <Input type="year" name="year" id="year" placeholder="" />
-      </FormGroup>
-    </Col>
-    <Col md={3}>
-      <FormGroup>
-        <Label for="Make">Make</Label>
-        <Input type="make" name="make" id="make" placeholder="" />
-      </FormGroup>
-    </Col>
-    <Col md={3}>
-      <FormGroup>
-        <Label for="Model">Model</Label>
-        <Input type="model" name="model" id="model" placeholder="" />
-      </FormGroup>
-    </Col>
-    <Col md={3}>
-      <FormGroup>
-        <Label for="Mileage">Mileage</Label>
-        <Input type="mileage" name="mileage" id="mileage" placeholder="" />
-      </FormGroup>
-    </Col>
-  </Row>
-  <Row>
-  
-    <Col className="spacing">OR</Col>
-    
-  </Row>
-
-  <Row form="true">
-    <Col md={3}>
-
-    </Col>
-    <Col md={3}>
-      <FormGroup>
-        <Label for="vin">VIN #</Label>
-        <Input type="vin" name="vin" id="vin" placeholder="" />
-      </FormGroup>
-    </Col>
-    <Col md={3}>
-      <FormGroup>
-      <Label for="Mileage">Mileage</Label>
-        <Input type="mileage" name="mileage" id="mileage" placeholder="" />
-      </FormGroup>
-    </Col>
-    <Col md={3}>
-    
-    </Col>
-  </Row>
-  <Row>
-    <Col className="spacing">
-  <Button className="button-style">Update Vehicle</Button>
-  </Col>
-  </Row>
-  </Col>
-</Form>
-
-      
-    )
-  }
-}
+export default CarForm;
