@@ -1,9 +1,5 @@
 import axios from 'axios';
 
-const BASEURL = 'https://api.carmd.com/v3.0/fields?';
-const AUTH_KEY = `Basic ${process.env.REACT_APP_CARMD_AUTH_KEY}`;
-const PARTNER_TOKEN = process.env.REACT_APP_CARMD_PARTNER_TOKEN;
-
 // export default {
 //   // gets books from google books api
 //   search: function(query) {
@@ -12,8 +8,17 @@ const PARTNER_TOKEN = process.env.REACT_APP_CARMD_PARTNER_TOKEN;
 
 export default {
   //get available fields
-  getAvailableFields: function(vin, mileage) {
-    return axios.get('api/service/availableFields');
+  getAvailableFields: function(year, make, model, mileage, vin) {
+    console.log(year, make, model, mileage, vin);
+    return axios.get('api/service/availableFields', {
+      params: {
+        year: year,
+        make: make,
+        model: model,
+        mileage: mileage,
+        vin: vin,
+      },
+    });
   },
 
   // // Gets the book with the given id

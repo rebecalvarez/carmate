@@ -10,11 +10,16 @@ export default class CarForm extends Component {
     maint: '',
     recall: '',
     warranty: '',
+    mileage: '',
+    make: '',
+    model: '',
+    year: '',
+    vin: '',
   };
 
-  getFields = () => {
+  getFields = (year, make, model, mileage, vin) => {
     //upcoming repairs, tsb, maintenance, recall, warranty
-    API.getAvailableFields()
+    API.getAvailableFields(year, make, model, mileage, vin)
       .then(res =>
         this.setState({
           upcoming: res.data.upcoming ? 'Yes' : 'No',
@@ -26,6 +31,26 @@ export default class CarForm extends Component {
       )
 
       .catch(err => console.log(err));
+  };
+
+  handleInputChange = event => {
+    const value = event.target.value;
+    const name = event.target.name;
+    this.setState({
+      [name]: value,
+    });
+  };
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    this.setState({
+      upcoming: '',
+      tsb: '',
+      maint: '',
+      recall: '',
+      warranty: '',
+    });
+    this.getFields(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin);
   };
 
   render() {
@@ -47,25 +72,53 @@ export default class CarForm extends Component {
               <Col md={3}>
                 <FormGroup>
                   <Label for="Year">Year</Label>
-                  <Input type="year" name="year" id="year" placeholder="" />
+                  <Input
+                    type="year"
+                    name="year"
+                    id="year"
+                    onChange={this.handleInputChange}
+                    value={this.state.year}
+                    placeholder=""
+                  />
                 </FormGroup>
               </Col>
               <Col md={3}>
                 <FormGroup>
                   <Label for="Make">Make</Label>
-                  <Input type="make" name="make" id="make" placeholder="" />
+                  <Input
+                    type="make"
+                    name="make"
+                    id="make"
+                    onChange={this.handleInputChange}
+                    value={this.state.make}
+                    placeholder=""
+                  />
                 </FormGroup>
               </Col>
               <Col md={3}>
                 <FormGroup>
                   <Label for="Model">Model</Label>
-                  <Input type="model" name="model" id="model" placeholder="" />
+                  <Input
+                    type="model"
+                    name="model"
+                    id="model"
+                    onChange={this.handleInputChange}
+                    value={this.state.model}
+                    placeholder=""
+                  />
                 </FormGroup>
               </Col>
               <Col md={3}>
                 <FormGroup>
                   <Label for="Mileage">Mileage</Label>
-                  <Input type="mileage" name="mileage" id="mileage" placeholder="" />
+                  <Input
+                    type="mileage"
+                    name="mileage"
+                    id="mileage"
+                    onChange={this.handleInputChange}
+                    value={this.state.mileage}
+                    placeholder=""
+                  />
                 </FormGroup>
               </Col>
             </Row>
@@ -78,20 +131,34 @@ export default class CarForm extends Component {
               <Col md={3}>
                 <FormGroup>
                   <Label for="vin">VIN #</Label>
-                  <Input type="vin" name="vin" id="vin" placeholder="" />
+                  <Input
+                    type="vin"
+                    name="vin"
+                    id="vin"
+                    onChange={this.handleInputChange}
+                    value={this.state.vin}
+                    placeholder=""
+                  />
                 </FormGroup>
               </Col>
               <Col md={3}>
                 <FormGroup>
                   <Label for="Mileage">Mileage</Label>
-                  <Input type="mileage" name="mileage" id="mileage" placeholder="" />
+                  <Input
+                    type="mileage"
+                    name="mileage"
+                    onChange={this.handleInputChange}
+                    value={this.state.mileage}
+                    id="mileage"
+                    placeholder=""
+                  />
                 </FormGroup>
               </Col>
               <Col md={3} />
             </Row>
             <Row>
               <Col className="spacing">
-                <Button className="button-style" onClick={this.getFields}>
+                <Button className="button-style" onClick={this.handleFormSubmit}>
                   Update Vehicle
                 </Button>
               </Col>

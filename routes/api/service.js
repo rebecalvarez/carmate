@@ -6,10 +6,20 @@ const AUTH_KEY = `Basic ${process.env.REACT_APP_CARMD_AUTH_KEY}`;
 const PARTNER_TOKEN = process.env.REACT_APP_CARMD_PARTNER_TOKEN;
 
 // Matches with "/api/car/fields"
+
+///fields?year=<year>&make=<make>&model=<model>&mileage=<mileage>
 router.get('/availableFields', (req, res) => {
-  const vin = 'vin=1GNALDEK9FZ108495&';
-  const mileage = 'mileage=55000';
-  const queryURL = BASEURL + vin + mileage;
+  console.log(req.query);
+  let queryURL;
+  const year = `year=${req.query.year}&`;
+  const make = `make=${req.query.make}&`;
+  const model = `model=${req.query.model}&`;
+  const mileage = `mileage=${req.query.mileage}`;
+  const vin = `vin=${req.query.vin}&`;
+  req.query.vin
+    ? (queryURL = BASEURL + vin + mileage)
+    : (queryURL = BASEURL + year + make + model + mileage);
+  console.log(queryURL);
   axios
     .get(queryURL, {
       headers: {
@@ -19,6 +29,7 @@ router.get('/availableFields', (req, res) => {
       }
     })
     .then(function(response) {
+      console.log(response.data.data);
       res.send(response.data.data);
     });
 });
