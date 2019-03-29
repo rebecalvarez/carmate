@@ -4,6 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import CarForm from '../elements/CarForm';
 import Logo from './images/CARMATE-Logo-horizontal-web2.png';
 import API from '../../utils/API';
+import LandingRender from '../elements/LandingRender';
 
 class Landing extends Component {
   state = {
@@ -80,29 +81,15 @@ class Landing extends Component {
           model={this.state.model}
           make={this.state.make}
           mileage={this.state.mileage}
+        />
+
+        <LandingRender
           upcoming={this.state.upcoming}
           tsb={this.state.tsb}
           maint={this.state.maint}
-          warranty={this.state.warranty}
           recall={this.state.recall}
+          warranty={this.state.warranty}
         />
-        <ul
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'flex-start',
-            listStyleType: 'none',
-            marginLeft: '30vw',
-          }}
-        >
-          <li>Future Maintenance: {this.state.upcoming}</li>
-          <li>Technical Service Bulletin: {this.state.tsb}</li>
-          <li>Maintenance: {this.state.maint}</li>
-          <li>Recalls: {this.state.recall}</li>
-          <li>Vehicle Warranty: {this.state.warranty}</li>
-        </ul>
-        {/* <LandingRender/> */}
       </div>
     );
   }
