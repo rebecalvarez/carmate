@@ -6,7 +6,7 @@ const AUTH_KEY = `Basic ${process.env.REACT_APP_CARMD_AUTH_KEY}`;
 const PARTNER_TOKEN = process.env.REACT_APP_CARMD_PARTNER_TOKEN;
 
 // Matches with "/api/car/fields"
-router.get('/fields', (req, res) => {
+router.get('/availableFields', (req, res) => {
   const vin = 'vin=1GNALDEK9FZ108495&';
   const mileage = 'mileage=55000';
   const queryURL = BASEURL + vin + mileage;

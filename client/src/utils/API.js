@@ -13,7 +13,7 @@ const PARTNER_TOKEN = process.env.REACT_APP_CARMD_PARTNER_TOKEN;
 export default {
   //get available fields
   getAvailableFields: function(vin, mileage) {
-    return axios.get('api/car/fields');
+    return axios.get('api/service/availableFields');
   },
 
   // // Gets the book with the given id
