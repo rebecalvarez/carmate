@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import "./style.css";
-import DemoImage from '../images/CARMATE-USERIMAGE.png'
+import DemoImage from '../images/CARMATE-USERIMAGE.jpg'
 // import ReactDOM from 'react-dom'
 
 export default class UserImage extends Component {

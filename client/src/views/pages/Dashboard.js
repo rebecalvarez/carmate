@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import CarForm from '../elements/CarForm';
 import Accordion from '../elements/Accordion';
 import UserImage from '../elements/UserImage';
-import Logo from './images/CARMATE-Logo.png';
+import Logo from './images/CARMATE-Logo-horizontal-web2.png';
 import MaintIcon from './images/maint-sm.png';
 import { Col, Row } from 'reactstrap';
 

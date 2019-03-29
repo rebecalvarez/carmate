@@ -32,7 +32,7 @@ h3 {
   .submitButton {
     padding: 5px;
     margin-left: 10px;
-    background: #ED7715 ;
+    background: #328E83;
     border: 1px solid #d3d3d3;
     border-radius: 8px;
     font-weight: 500;
@@ -42,7 +42,7 @@ h3 {
     width: 210px;
   }
   .submitButton:hover {
-    background: #328E83;
+    background: #ED7715 ;
     color: white;
   }
   .centerText {
