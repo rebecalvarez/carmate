@@ -3,8 +3,10 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import CarForm from '../elements/CarForm';
 import Accordion from '../elements/Accordion';
+import UserImage from '../elements/UserImage';
 import Logo from './images/CARMATE-Logo.png';
 import MaintIcon from './images/maint-sm.png';
+import { Col, Row } from 'reactstrap';
 
 
 // This is an example of the panels information displayed
@@ -52,10 +54,17 @@ class Dashboard extends Component {
     </Nav>
   </Navbar.Collapse>
 </Navbar>
-
-
+<Col md={{ size: 12, offset: 0 }}>
+<Row>
+  <Col md={1}></Col>
+  <Col md={1}>
+<UserImage/>
+</Col>
+<Col md={10}>
 <CarForm/>
-
+</Col>
+</Row>
+</Col>
 <Accordion panels={panels}/>
 
     </div>
