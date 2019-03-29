@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import RepairForm from '../elements/RepairForm';
-import Logo from './images/CARMATE-Logo.png';
+import Logo from './images/CARMATE-Logo-horizontal-web2.png';
 
 class Repair extends Component {
   // state = {calls: []};

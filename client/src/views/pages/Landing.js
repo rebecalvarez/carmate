@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import CarForm from '../elements/CarForm';
-import Logo from './images/CARMATE-Logo.png';
+import Logo from './images/CARMATE-Logo-horizontal-web2.png';
 
 
 class Landing extends Component {
