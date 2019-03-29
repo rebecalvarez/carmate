@@ -5,9 +5,8 @@ const BASEURL = 'https://api.carmd.com/v3.0/fields?';
 const AUTH_KEY = `Basic ${process.env.REACT_APP_CARMD_AUTH_KEY}`;
 const PARTNER_TOKEN = process.env.REACT_APP_CARMD_PARTNER_TOKEN;
 
-// Matches with "/api/car/fields"
+// Matches with "/api/service/fields"
 
-///fields?year=<year>&make=<make>&model=<model>&mileage=<mileage>
 router.get('/availableFields', (req, res) => {
   console.log(req.query);
   let queryURL;
