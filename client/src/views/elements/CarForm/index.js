@@ -23,58 +23,39 @@ export default class CarForm extends Component {
   <Col md={{ size: 6, offset: 3 }}>
   <Row> <Col className="spacing">Please fill out the following information to update your vehicle</Col></Row>
   <Row form="true">
-    <Col md={3}>
+  <Col md={6} >
+      <FormGroup className="vinStyle">
+        <Label for="vin">VIN #</Label>
+        <Input type="vin" name="vin" id="vin" placeholder="" />
+      </FormGroup>
+    </Col>
+    <Col md={2} >OR</Col>
+    <Col md={4}>
   
       <FormGroup>
         <Label for="Year">Year</Label>
         <Input type="year" name="year" id="year" placeholder="" />
       </FormGroup>
-    </Col>
-    <Col md={3}>
       <FormGroup>
         <Label for="Make">Make</Label>
         <Input type="make" name="make" id="make" placeholder="" />
       </FormGroup>
-    </Col>
-    <Col md={3}>
       <FormGroup>
         <Label for="Model">Model</Label>
         <Input type="model" name="model" id="model" placeholder="" />
       </FormGroup>
     </Col>
-    <Col md={3}>
+    
+    <Row >
       <FormGroup>
         <Label for="Mileage">Mileage</Label>
         <Input type="mileage" name="mileage" id="mileage" placeholder="" />
       </FormGroup>
-    </Col>
+    </Row>
   </Row>
-  <Row>
   
-    <Col className="spacing">OR</Col>
-    
-  </Row>
 
-  <Row form="true">
-    <Col md={3}>
 
-    </Col>
-    <Col md={3}>
-      <FormGroup>
-        <Label for="vin">VIN #</Label>
-        <Input type="vin" name="vin" id="vin" placeholder="" />
-      </FormGroup>
-    </Col>
-    <Col md={3}>
-      <FormGroup>
-      <Label for="Mileage">Mileage</Label>
-        <Input type="mileage" name="mileage" id="mileage" placeholder="" />
-      </FormGroup>
-    </Col>
-    <Col md={3}>
-    
-    </Col>
-  </Row>
   <Row>
     <Col className="spacing">
   <Button className="button-style">Update Vehicle</Button>
