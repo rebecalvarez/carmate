@@ -1,5 +1,6 @@
 // Declaring express
 const express = require('express');
+require('dotenv').config();
 
 // Other dependencies
 const mongoose = require('mongoose');

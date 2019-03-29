@@ -1,64 +1,31 @@
 import React from 'react';
 import './style.css';
 
-
 function LandingRender(props) {
   return (
-    <div className='row mb-5'>
-    <div className='col-lg-12'>
-    {props.books.map(book => (
-        <div className='card mt-4'
-            key = {
-                book._id
-                ? book._id
-                : book.googleBookId
-            }>
-
-            <div className ='card-body'>
-            <h5 className = 'card-title'>{book.title}</h5>
-            <h6 className = 'card-subtitle mb-2 text-muted'>{book.subtitle}</h6>
-            <div className = 'media'>
-            <img src={book.thumbnail}
-            className= 'align-self-center mr-3' alt='BookThubmnail'/>
-            <div className='media-body'> 
-            <h6 className ='mt-0'>{book.authors}</h6>
-            {/* <h6 className ='mt-0'>{book.authors.join(",")}</h6> */}
-            <p className='mb-0'>{book.description}</p>
-            <p className ="mb-0">
-            <small className='text-muted'>{book.pageCount} pages.</small>
-            </p >
-
-            <p className="mb-2">
-            <small className='text-muted'>Published {book.publishedDate}</small>
-
-            </p>
-            
-            </div>
-
-
-            </div>
-            <a className='btn btn-info mr-1 mt-2' href={book.link} target='_blank'
-            rel = 'noopener noreferrer'>View Book</a>
-
-            <button className={props.buttonType}
-                onClick = {props.buttonAction}
-                id ={
-                    book._id
-                    ? book._id
-                    : book.googleBookId
-                }
-                    >
-                    {props.buttonText}
-                    </button>
-        </div>
-        </div>
-    ))}
-
-
+    <div>
+      <ul
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          listStyleType: 'none',
+          marginTop: '5vh',
+        }}
+      >
+        {' '}
+        {props.upcoming || props.tsb || props.maint || props.recall || props.warranty ? (
+          <h4 style={{ textDecoration: 'underline' }}>The following information is available for your vehicle:</h4>
+        ) : null}
+        <li>{props.upcoming ? 'Upcoming Repairs' : null}</li>
+        <li>{props.tsb ? 'Technical Service Bulletin' : null}</li>
+        <li>{props.maint ? 'Maintenance' : null}</li>
+        <li>{props.recall ? 'Safety Recalls' : null}</li>
+        <li>{props.warranty ? 'Warranty Information' : null}</li>
+      </ul>
     </div>
-    </div>
-   
-  )
+  );
 }
 
 export default LandingRender;
