@@ -9,8 +9,8 @@ export default class CarForm extends Component {
     this.state = {};
   }
 
-  getFields = (vin = '1GNALDEK9FZ108495', mileage = '55000') => {
-    API.getAvailableFields(vin, mileage)
+  getFields = () => {
+    API.getAvailableFields()
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };
