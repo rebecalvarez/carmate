@@ -21,7 +21,14 @@ const CarForm = props => {
             <Col md={3}>
               <FormGroup>
                 <Label for="Year">Year</Label>
-                <Input type="year" name="year" id="year" onChange={props.onChange} value={props.year} placeholder="" />
+                <Input
+                  type="number"
+                  name="year"
+                  id="year"
+                  onChange={props.onChange}
+                  value={props.year}
+                  placeholder=""
+                />
               </FormGroup>
             </Col>
             <Col md={3}>
@@ -47,7 +54,7 @@ const CarForm = props => {
               <FormGroup>
                 <Label for="Mileage">Mileage</Label>
                 <Input
-                  type="mileage"
+                  type="number"
                   name="mileage"
                   id="mileage"
                   onChange={props.onChange}
@@ -73,7 +80,7 @@ const CarForm = props => {
               <FormGroup>
                 <Label for="Mileage">Mileage</Label>
                 <Input
-                  type="mileage"
+                  type="number"
                   name="mileage"
                   onChange={props.onChange}
                   value={props.mileage}

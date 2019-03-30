@@ -32,6 +32,7 @@ router.get('/availableFields', (req, res) => {
       res.send(response.data.data);
     });
 });
+
 router.get('/getMaintenance', (req, res) => {
   const BASEURL = 'https://api.carmd.com/v3.0/maint?';
   console.log(req.query);
@@ -55,11 +56,11 @@ router.get('/getMaintenance', (req, res) => {
     })
     .then(function(response) {
       // console.log(response.data.data);
-      const mydata = response.data.data.map(
-        data => `${data.desc}, ${data.due_mileage}`
+      const maintenanceData = response.data.data.map(
+        data => `${data.desc} at ${data.due_mileage} miles\n`
       );
-      console.log(mydata);
-      res.send(mydata);
+      console.log(maintenanceData);
+      res.send(maintenanceData);
     });
 });
 
@@ -85,11 +86,75 @@ router.get('/getRecalls', (req, res) => {
     })
     .then(function(response) {
       // console.log(response.data.data);
-      const mydata = response.data.data.map(
-        data => `${data.desc}, ${data.recall_date}`
+      const recallData = response.data.data.map(
+        data =>
+          `recall description: ${data.desc}\n recall date: ${
+            data.recall_date
+          }\n`
       );
-      console.log(mydata);
-      res.send(mydata);
+      console.log(recallData);
+      res.send(recallData);
+    });
+});
+
+router.get('/getUpcoming', (req, res) => {
+  const BASEURL = 'https://api.carmd.com/v3.0/upcoming?';
+  console.log(req.query);
+  let queryURL;
+  const year = `year=${req.query.year}&`;
+  const make = `make=${req.query.make}&`;
+  const model = `model=${req.query.model}&`;
+  const mileage = `mileage=${req.query.mileage}`;
+  const vin = `vin=${req.query.vin}&`;
+  req.query.vin
+    ? (queryURL = BASEURL + vin + mileage)
+    : (queryURL = BASEURL + year + make + model + mileage);
+  console.log(queryURL);
+  axios
+    .get(queryURL, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: AUTH_KEY,
+        'Partner-Token': PARTNER_TOKEN
+      }
+    })
+    .then(function(response) {
+      // console.log(response.data.data);
+      const upcomingData = response.data.data.map(
+        data => `repair: ${data.desc} total cost: ${data.total_cost}\n`
+      );
+      console.log(upcomingData);
+      res.send(upcomingData);
+    });
+});
+
+router.get('/getWarranty', (req, res) => {
+  const BASEURL = 'https://api.carmd.com/v3.0/warranty?';
+  console.log(req.query);
+  let queryURL;
+  const year = `year=${req.query.year}&`;
+  const make = `make=${req.query.make}&`;
+  const model = `model=${req.query.model}&`;
+  const vin = `vin=${req.query.vin}&`;
+  req.query.vin
+    ? (queryURL = BASEURL + vin)
+    : (queryURL = BASEURL + year + make + model);
+  console.log(queryURL);
+  axios
+    .get(queryURL, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: AUTH_KEY,
+        'Partner-Token': PARTNER_TOKEN
+      }
+    })
+    .then(function(response) {
+      // console.log(response.data.data);
+      const warrantyData = response.data.data.map(
+        data => `warranty: ${data.type}\n criteria:${data.criteria}\n`
+      );
+      console.log(warrantyData);
+      res.send(warrantyData);
     });
 });
 

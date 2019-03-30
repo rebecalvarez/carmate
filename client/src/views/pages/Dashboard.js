@@ -27,11 +27,11 @@ class Dashboard extends Component {
         content:
           'When your icon font fails, the browser treats it like any other font and replaces it with a fallback. Best-case scenario, you\'ve chosen your fallback characters carefully and something weird-looking but communicative still loads. Worse-case scenario (and far more often), the user sees something completely incongruous, usually the dreaded "missing character" glyph.',
       },
-      {
-        label: 'Technical Service Bulletin',
-        content:
-          "Many dyslexic people find it helpful to swap out a website's typeface for something like OpenDyslexic. But icon fonts get replaced as well, which makes for a frustratingly broken experience.",
-      },
+      // {
+      //   label: 'Technical Service Bulletin',
+      //   content:
+      //     "Many dyslexic people find it helpful to swap out a website's typeface for something like OpenDyslexic. But icon fonts get replaced as well, which makes for a frustratingly broken experience.",
+      // },
       {
         label: 'Vehicle Warranty',
         content:
@@ -60,6 +60,20 @@ class Dashboard extends Component {
       .catch(err => console.log(err));
   };
 
+  getUpcoming = (year, make, model, mileage, vin) => {
+    API.getUpcoming(year, make, model, mileage, vin)
+      .then(res => console.log(`upcoming: ${res.data}`))
+
+      .catch(err => console.log(err));
+  };
+
+  getWarranty = (year, make, model, vin) => {
+    API.getWarranty(year, make, model, vin)
+      .then(res => console.log(`warranty: ${res.data}`))
+
+      .catch(err => console.log(err));
+  };
+
   handleInputChange = event => {
     const value = event.target.value;
     const name = event.target.name;
@@ -72,6 +86,8 @@ class Dashboard extends Component {
     event.preventDefault();
     this.getMaintenance(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin);
     this.getRecalls(this.state.year, this.state.make, this.state.model, this.state.vin);
+    this.getUpcoming(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin);
+    this.getWarranty(this.state.year, this.state.make, this.state.model, this.state.vin);
   };
 
   render() {
