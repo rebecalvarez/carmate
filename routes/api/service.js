@@ -92,9 +92,9 @@ router.get('/getRecalls', (req, res) => {
       // console.log(response.data.data);
       const recallData = response.data.data.map(
         data =>
-          `recall description: ${data.desc}\n recall date: ${
-            data.recall_date
-          }\n`
+          `recall description: ${data.desc}\n consequence: ${
+            data.consequence
+          }\n recall date: ${data.recall_date}\n`
       );
       console.log(recallData);
       res.send(recallData);
