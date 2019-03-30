@@ -66,7 +66,7 @@ class Landing extends Component {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Nav className="ml-auto float-right">
-              <Nav.Link href="/login">Login</Nav.Link>
+              <Nav.Link href="/auth/login">Login</Nav.Link>
               <Nav.Link href="/register">Register</Nav.Link>
             </Nav>
           </Navbar.Collapse>
