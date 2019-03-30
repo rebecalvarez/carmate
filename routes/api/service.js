@@ -30,7 +30,10 @@ router.get('/availableFields', (req, res) => {
     .then(function(response) {
       console.log(response.data);
       res.send(response.data.data);
-    });
+    })
+    .catch(err =>
+      console.log(err.message, 'no available fields for this model!')
+    );
 });
 
 router.get('/getMaintenance', (req, res) => {
@@ -61,7 +64,8 @@ router.get('/getMaintenance', (req, res) => {
       );
       console.log(maintenanceData);
       res.send(maintenanceData);
-    });
+    })
+    .catch(err => console.log(err.message, 'maintenance doesn\'t exist!'));
 });
 
 router.get('/getRecalls', (req, res) => {
@@ -94,7 +98,8 @@ router.get('/getRecalls', (req, res) => {
       );
       console.log(recallData);
       res.send(recallData);
-    });
+    })
+    .catch(err => console.log(err.message, 'recalls don\'t exist!'));
 });
 
 router.get('/getUpcoming', (req, res) => {
@@ -125,7 +130,8 @@ router.get('/getUpcoming', (req, res) => {
       );
       console.log(upcomingData);
       res.send(upcomingData);
-    });
+    })
+    .catch(err => console.log(err.message, 'no upcoming repairs!'));
 });
 
 router.get('/getWarranty', (req, res) => {
@@ -155,7 +161,8 @@ router.get('/getWarranty', (req, res) => {
       );
       console.log(warrantyData);
       res.send(warrantyData);
-    });
+    })
+    .catch(err => console.log(err.message, 'warranty info doesn\'t exist!'));
 });
 
 // Matches with "/api/books/:id"
