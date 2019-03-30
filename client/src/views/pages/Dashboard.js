@@ -16,7 +16,7 @@ class Dashboard extends Component {
     panels: [
       {
         label: 'Maintenance',
-        content: '',
+        content: this.maintenance,
       },
       {
         label: 'Recalls',
@@ -38,7 +38,7 @@ class Dashboard extends Component {
           "SVG is awesome for icons! It's a vector image format with optional support for CSS, JavaScript, reusability, accessibility and a bunch more. It was made for this sort of thing.",
       },
     ],
-    maintenance: '',
+    maintenance: ['This is test', 'this is second test'],
     mileage: '',
     make: '',
     model: '',
