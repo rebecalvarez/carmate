@@ -20,6 +20,30 @@ export default {
       },
     });
   },
+  getMaintenance: function(year, make, model, mileage, vin) {
+    console.log(year, make, model, mileage, vin);
+    return axios.get('api/service/getMaintenance', {
+      params: {
+        year: year,
+        make: make,
+        model: model,
+        mileage: mileage,
+        vin: vin,
+      },
+    });
+  },
+
+  getRecalls: function(year, make, model, vin) {
+    console.log(year, make, model, vin);
+    return axios.get('api/service/getRecalls', {
+      params: {
+        year: year,
+        make: make,
+        model: model,
+        vin: vin,
+      },
+    });
+  },
 
   // // Gets the book with the given id
   // getBook: function(id) {
