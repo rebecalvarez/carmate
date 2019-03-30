@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const booksController = require('../../controllers/booksController');
+const servicesController = require('../../controllers/servicesController');
 const axios = require('axios');
 const AUTH_KEY = `Basic ${process.env.REACT_APP_CARMD_AUTH_KEY}`;
 const PARTNER_TOKEN = process.env.REACT_APP_CARMD_PARTNER_TOKEN;
@@ -168,8 +168,8 @@ router.get('/getWarranty', (req, res) => {
 // Matches with "/api/books/:id"
 router
   .route('/:id')
-  .get(booksController.findById)
-  .put(booksController.update)
-  .delete(booksController.remove);
+  .get(servicesController.findById)
+  .put(servicesController.update)
+  .delete(servicesController.remove);
 
 module.exports = router;
