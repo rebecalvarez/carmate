@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const booksController = require('../../controllers/booksController');
+const servicesController = require('../../controllers/servicesController');
 const axios = require('axios');
 const AUTH_KEY = `Basic ${process.env.REACT_APP_CARMD_AUTH_KEY}`;
 const PARTNER_TOKEN = process.env.REACT_APP_CARMD_PARTNER_TOKEN;
@@ -62,7 +62,7 @@ router.get('/getMaintenance', (req, res) => {
       const maintenanceData = response.data.data.map(
         data => `${data.desc} at ${data.due_mileage} miles\n`
       );
-      console.log(maintenanceData);
+      console.log('!!!!!!',maintenanceData);
       res.send(maintenanceData);
     })
     .catch(err => console.log(err.message, 'maintenance doesn\'t exist!'));
@@ -92,9 +92,9 @@ router.get('/getRecalls', (req, res) => {
       // console.log(response.data.data);
       const recallData = response.data.data.map(
         data =>
-          `recall description: ${data.desc}\n recall date: ${
-            data.recall_date
-          }\n`
+          `recall description: ${data.desc}\n consequence: ${
+            data.consequence
+          }\n recall date: ${data.recall_date}\n`
       );
       console.log(recallData);
       res.send(recallData);
@@ -168,8 +168,8 @@ router.get('/getWarranty', (req, res) => {
 // Matches with "/api/books/:id"
 router
   .route('/:id')
-  .get(booksController.findById)
-  .put(booksController.update)
-  .delete(booksController.remove);
+  .get(servicesController.findById)
+  .put(servicesController.update)
+  .delete(servicesController.remove);
 
 module.exports = router;

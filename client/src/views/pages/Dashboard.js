@@ -16,16 +16,16 @@ class Dashboard extends Component {
     panels: [
       {
         label: 'Maintenance',
-        content: this.maintenance,
+        content: 'Maintenance Information Not Available',
       },
       {
         label: 'Recalls',
-        content: '',
+        content: 'Recalls Information Not Available',
       },
       {
         label: 'Upcoming Repairs',
         content:
-          'When your icon font fails, the browser treats it like any other font and replaces it with a fallback. Best-case scenario, you\'ve chosen your fallback characters carefully and something weird-looking but communicative still loads. Worse-case scenario (and far more often), the user sees something completely incongruous, usually the dreaded "missing character" glyph.',
+          'Upcoming Repairs Information Not Available',
       },
       // {
       //   label: 'Technical Service Bulletin',
@@ -35,10 +35,11 @@ class Dashboard extends Component {
       {
         label: 'Vehicle Warranty',
         content:
-          "SVG is awesome for icons! It's a vector image format with optional support for CSS, JavaScript, reusability, accessibility and a bunch more. It was made for this sort of thing.",
+          "Vehicle Warranty Information Not Available",
       },
     ],
-    maintenance: ['This is test', 'this is second test'],
+    maintenance: [],
+    upcoming: [],
     mileage: '',
     make: '',
     model: '',
@@ -47,8 +48,16 @@ class Dashboard extends Component {
   };
 
   getMaintenance = (year, make, model, mileage, vin) => {
+    
     API.getMaintenance(year, make, model, mileage, vin)
-      .then(res => console.log(`get maintenance: ${res.data}`))
+      .then(res => {
+        console.log("OK Dashboard",year);
+        const obj = this.state.panels 
+        // obj[0].content = res.data.join('<br />')
+        obj[0].content = res.data
+        this.setState({panels:obj})
+        console.log('get maintenance:', res.data)
+      })
 
       .catch(err => console.log(err));
   };
@@ -83,7 +92,7 @@ class Dashboard extends Component {
   };
 
   handleFormSubmit = event => {
-    event.preventDefault();
+    event.preventDefault();    
     this.getMaintenance(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin);
     this.getRecalls(this.state.year, this.state.make, this.state.model, this.state.vin);
     this.getUpcoming(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin);
