@@ -25,10 +25,12 @@ if (process.env.NODE_ENV === 'production') {
 
 //setting cookie time limit and encrypting
 
-app.use(cookieSession({
-  maxAge: 24*60*60*1000,
-  keys:[process.env.SESSION_COOKIE_ENCRYPT]
-}))
+app.use(
+  cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [process.env.SESSION_COOKIE_ENCRYPT]
+  })
+);
 
 //initialize passport
 
@@ -40,11 +42,13 @@ app.use(routes);
 app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
 
-
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/carmatedb', () => {
-  console.log("Connected to mongodb")
-});
+mongoose.connect(
+  process.env.MONGODB_URI || 'mongodb://localhost/carmatedb',
+  () => {
+    console.log('Connected to mongodb');
+  }
+);
 
 // Start the API server
 app.listen(PORT, function() {
