@@ -13,11 +13,13 @@ passport.deserializeUser((id, done) => {
     });
 });
 
+
+
 passport.use(
     new GoogleStrategy({
-        callbackURL: '/auth/google/redirect',
         clientID: process.env.GOOGLE_USER_CLIENTID,
-        clientSecret: process.env.GOOGLE_USER_CLIENTSECRET
+        clientSecret: process.env.GOOGLE_USER_CLIENTSECRET,
+        callbackURL: '/auth/google/redirect'
     }, (accessToken, refreshToken, profile, done) => {
         User.findOne({googleid: profile.id}).then((currentUser)=>{
             if(currentUser){
@@ -36,3 +38,5 @@ passport.use(
     }
     )
 )
+
+module.exports = passport

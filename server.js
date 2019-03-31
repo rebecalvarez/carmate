@@ -36,9 +36,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Add routes, both API and view
-app.use(routes);
 app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
+app.use(routes);
+
 
 
 // Connect to the Mongo DB
