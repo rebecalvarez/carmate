@@ -1,5 +1,6 @@
 // Declaring express
 const express = require('express');
+const logger = require('morgan');
 require('dotenv').config();
 
 // Auth Dependancies
@@ -15,6 +16,8 @@ const routes = require('./routes');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Logging
+app.use(logger('dev'));
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
