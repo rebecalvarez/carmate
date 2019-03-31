@@ -4,7 +4,9 @@ import Nav from 'react-bootstrap/Nav';
 import CarForm from '../elements/CarForm';
 import Logo from './images/CARMATE-Logo-horizontal-web2.png';
 import API from '../../utils/API';
+import { Col, Row } from 'reactstrap';
 import LandingRender from '../elements/LandingRender';
+import  './style/landingstyle.css';
 
 class Landing extends Component {
   state = {
@@ -57,21 +59,31 @@ class Landing extends Component {
   };
 
   render() {
+    
+    
     return (
       <div>
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="dark" variant="dark" expand="lg">
           <Navbar.Brand href="/dashboard">
             <img src={Logo} alt="CarMate Logo" />
           </Navbar.Brand>
-          <Navbar.Toggle />
-          <Navbar.Collapse className="justify-content-end">
-            <Nav className="ml-auto float-right">
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ml-auto">
               <Nav.Link href="/auth/login">Login</Nav.Link>
               <Nav.Link href="/register">Register</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
+<div className='container'>
 
+<Col md={{ size: 12, offset: 0 }} className="landingform" >
+          <Row>
+            <Col md={1} />
+            <Col md={2} >
+             
+            </Col>
+            <Col md={12} >
         <CarForm
           handleFormSubmit={this.handleFormSubmit}
           onChange={this.handleInputChange}
@@ -83,6 +95,10 @@ class Landing extends Component {
           mileage={this.state.mileage}
         />
 
+</Col>
+          </Row>
+        </Col>
+</div>
         <LandingRender
           upcoming={this.state.upcoming}
           tsb={this.state.tsb}
@@ -90,6 +106,7 @@ class Landing extends Component {
           recall={this.state.recall}
           warranty={this.state.warranty}
         />
+
       </div>
     );
   }

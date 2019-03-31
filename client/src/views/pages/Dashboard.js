@@ -102,7 +102,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="dark" variant="dark" expand="lg">
           <Navbar.Brand href="/dashboard">
             <img src={Logo} alt="CarMate Logo" />
           </Navbar.Brand>
