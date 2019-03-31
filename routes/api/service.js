@@ -3,6 +3,7 @@ const servicesController = require('../../controllers/servicesController');
 const axios = require('axios');
 const AUTH_KEY = `Basic ${process.env.REACT_APP_CARMD_AUTH_KEY}`;
 const PARTNER_TOKEN = process.env.REACT_APP_CARMD_PARTNER_TOKEN;
+const db = require('../../models');
 
 // Matches with "/api/service/availableFields"
 
@@ -58,12 +59,27 @@ router.get('/getMaintenance', (req, res) => {
       }
     })
     .then(function(response) {
-      // console.log(response.data.data);
-      const maintenanceData = response.data.data.map(
-        data => `${data.desc} at ${data.due_mileage} miles\n`
-      );
+      const maintenanceData = response.data.data;
+      // const maintenanceData = response.data.data.map(
+      //   data => `${data.desc} at ${data.due_mileage} miles\n`
+      // );
       console.log(maintenanceData);
-      res.send(maintenanceData);
+
+      // db.Service.create(maintenanceData).then(function (dbServices) {
+      //   console.log(dbServices);
+      //   response.json(dbServices);
+      // }).catch(function (error) {
+      //   return error;
+      // });
+
+      db.Service.collection.insertMany(maintenanceData).then(function(dbServices){
+        console.log(dbServices);
+        response.json(dbServices);
+      }).catch(function(error){
+        return error;
+      });
+
+      // res.send(maintenanceData);
     })
     .catch(err => console.log(err.message, 'maintenance doesn\'t exist!'));
 });
@@ -165,11 +181,15 @@ router.get('/getWarranty', (req, res) => {
     .catch(err => console.log(err.message, 'warranty info doesn\'t exist!'));
 });
 
+// router.route('/')
+//   // .get(servicesController.findAll)
+//   .get(servicesController.create);
+
 // Matches with "/api/books/:id"
-router
-  .route('/:id')
-  .get(servicesController.findById)
-  .put(servicesController.update)
-  .delete(servicesController.remove);
+// router
+//   .route('/:id')
+//   .get(servicesController.findById)
+//   .put(servicesController.update)
+//   .delete(servicesController.remove);
 
 module.exports = router;
