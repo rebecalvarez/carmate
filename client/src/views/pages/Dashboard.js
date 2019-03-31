@@ -51,34 +51,42 @@ class Dashboard extends Component {
     
     API.getMaintenance(year, make, model, mileage, vin)
       .then(res => {
-        console.log("OK Dashboard",year);
-        const obj = this.state.panels 
-        // obj[0].content = res.data.join('<br />')
-        obj[0].content = res.data
-        this.setState({panels:obj})
-        console.log('get maintenance:', res.data)
+        const obj = this.state.panels;
+        obj[0].content = res.data.join(', ');
+        this.setState({ panels: obj });
       })
-
       .catch(err => console.log(err));
   };
 
   getRecalls = (year, make, model, vin) => {
     API.getRecalls(year, make, model, vin)
-      .then(res => console.log(`get recalls: ${res.data}`))
+      .then(res => {
+        const obj = this.state.panels;
+        obj[1].content = res.data.join(', ');
+        this.setState({ panels: obj });
+      })
 
       .catch(err => console.log(err));
   };
 
   getUpcoming = (year, make, model, mileage, vin) => {
     API.getUpcoming(year, make, model, mileage, vin)
-      .then(res => console.log(`upcoming: ${res.data}`))
+      .then(res => {
+        const obj = this.state.panels;
+        obj[2].content = res.data.join(', ');
+        this.setState({ panels: obj });
+      })
 
       .catch(err => console.log(err));
   };
 
   getWarranty = (year, make, model, vin) => {
     API.getWarranty(year, make, model, vin)
-      .then(res => console.log(`warranty: ${res.data}`))
+      .then(res => {
+        const obj = this.state.panels;
+        obj[3].content = res.data.join(', ');
+        this.setState({ panels: obj });
+      })
 
       .catch(err => console.log(err));
   };
