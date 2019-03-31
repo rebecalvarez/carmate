@@ -1,21 +1,21 @@
-const router = require("express").Router();
-const passport = require("passport");
+const router = require('express').Router();
+const passport = require('../config/passport-setup');
 
 router.get('/login', (req, res) => {
-    res.send('login', {user:req.user});
+  res.send('login', {user:req.user});
 });
 
 router.get('/logout', (req, res) => {
-    res.send('logging out');
+  res.send('logging out');
 });
 
 router.get('/google', passport.authenticate('google', {
-    scope:['profile']
+  scope:['profile']
 }));
 
 router.get('/google/redirect', passport.authenticate('google', {
-    successRedirect: '/',
-    failureRedirect: '/'
+  successRedirect: '/',
+  failureRedirect: '/'
 }));
 // router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
 //     res.redirect('/')
