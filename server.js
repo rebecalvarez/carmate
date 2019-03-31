@@ -1,5 +1,6 @@
 // Declaring express
 const express = require('express');
+const logger = require('morgan');
 require('dotenv').config();
 
 // Auth Dependancies
@@ -15,6 +16,8 @@ const routes = require('./routes');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Logging
+app.use(logger('dev'));
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -28,7 +31,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use(cookieSession({
   maxAge: 24*60*60*1000,
   keys:[process.env.SESSION_COOKIE_ENCRYPT]
-}))
+}));
 
 //initialize passport
 
@@ -44,7 +47,7 @@ app.use(routes);
 
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/carmatedb', () => {
-  console.log("Connected to mongodb")
+  console.log('Connected to mongodb');
 });
 
 // Start the API server
