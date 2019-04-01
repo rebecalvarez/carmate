@@ -30,12 +30,10 @@ class Panel extends Component {
       height: isActive ? `${height}px` : '0px',
       
     };
-    // const element =  content.map(function(item){
-    //     return <li key={ index }>{item}</li>;
-    //   })
-    
+  
 
-//  console.log(content , label);
+
+ console.log(content);
 
     return (
       <div className="panel" role="tabpanel" aria-expanded={isActive}>
@@ -44,8 +42,15 @@ class Panel extends Component {
         </button>
         <div className="panel__inner" style={innerStyle} aria-hidden={!isActive}>
           <div className="panel__content">
-          {/* {element} */}
-          {content}
+          {/* <ul>
+          {element}
+          </ul> */}
+          {/* {content} */}
+              <ul>
+     {
+      content.map((item, index) => <li key={index}>{item}</li>)
+    }
+   </ul>
         
           </div>
         </div>

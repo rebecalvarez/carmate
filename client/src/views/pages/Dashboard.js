@@ -16,16 +16,16 @@ class Dashboard extends Component {
     panels: [
       {
         label: 'Maintenance',
-        content: 'Maintenance Information Not Available',
+        content: ['Maintenance Information Not Available'],
       },
       {
         label: 'Recalls',
-        content: 'Recalls Information Not Available',
+        content: ['Recalls Information Not Available'],
       },
       {
         label: 'Upcoming Repairs',
         content:
-          'Upcoming Repairs Information Not Available',
+          ['Upcoming Repairs Information Not Available'],
       },
       // {
       //   label: 'Technical Service Bulletin',
@@ -35,7 +35,7 @@ class Dashboard extends Component {
       {
         label: 'Vehicle Warranty',
         content:
-          "Vehicle Warranty Information Not Available",
+          ["Vehicle Warranty Information Not Available"],
       },
     ],
     maintenance: [],
@@ -51,8 +51,9 @@ class Dashboard extends Component {
     
     API.getMaintenance(year, make, model, mileage, vin)
       .then(res => {
+        console.log ('THIS IS RES.DATA:  ',res.data)
         const obj = this.state.panels;
-        obj[0].content = res.data.join(', ');
+        obj[0].content = res.data;
         this.setState({ panels: obj });
       })
       .catch(err => console.log(err));
@@ -62,7 +63,7 @@ class Dashboard extends Component {
     API.getRecalls(year, make, model, vin)
       .then(res => {
         const obj = this.state.panels;
-        obj[1].content = res.data.join(', ');
+        obj[1].content = res.data;
         this.setState({ panels: obj });
       })
 
@@ -73,7 +74,7 @@ class Dashboard extends Component {
     API.getUpcoming(year, make, model, mileage, vin)
       .then(res => {
         const obj = this.state.panels;
-        obj[2].content = res.data.join(', ');
+        obj[2].content = res.data;
         this.setState({ panels: obj });
       })
 
@@ -84,7 +85,7 @@ class Dashboard extends Component {
     API.getWarranty(year, make, model, vin)
       .then(res => {
         const obj = this.state.panels;
-        obj[3].content = res.data.join(', ');
+        obj[3].content = res.data;
         this.setState({ panels: obj });
       })
 
