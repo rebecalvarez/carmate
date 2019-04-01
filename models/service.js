@@ -1,11 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+// const db = require('./index');
 
+// const serviceSchema = new Schema({
+//   serviceDescription: { type: String, required: true },
+//   dueMileage: { type: Number, required: true },
+//   totalCost: Number,
+//   date: { type: Date, default: Date.now }
+// });
 const serviceSchema = new Schema({
-  serviceDescription: { type: String, required: true },
-  dueMileage: { type: Number, required: true },
-  totalCost: Number,
-  date: { type: Date, default: Date.now }
+  any: Schema.Types.Mixed
+//   user: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
 
 const Service = mongoose.model('Service', serviceSchema);
