@@ -24,8 +24,7 @@ class Dashboard extends Component {
       },
       {
         label: 'Upcoming Repairs',
-        content:
-          'When your icon font fails, the browser treats it like any other font and replaces it with a fallback. Best-case scenario, you\'ve chosen your fallback characters carefully and something weird-looking but communicative still loads. Worse-case scenario (and far more often), the user sees something completely incongruous, usually the dreaded "missing character" glyph.',
+        content: '',
       },
       // {
       //   label: 'Technical Service Bulletin',
@@ -34,8 +33,7 @@ class Dashboard extends Component {
       // },
       {
         label: 'Vehicle Warranty',
-        content:
-          "SVG is awesome for icons! It's a vector image format with optional support for CSS, JavaScript, reusability, accessibility and a bunch more. It was made for this sort of thing.",
+        content: '',
       },
     ],
     maintenance: [],
@@ -49,28 +47,43 @@ class Dashboard extends Component {
 
   getMaintenance = (year, make, model, mileage, vin) => {
     API.getMaintenance(year, make, model, mileage, vin)
-      .then(res => console.log(`get maintenance: ${res.data}`))
-
+      .then(res => {
+        const obj = this.state.panels;
+        obj[0].content = res.data.join(', ');
+        this.setState({ panels: obj });
+      })
       .catch(err => console.log(err));
   };
 
   getRecalls = (year, make, model, vin) => {
     API.getRecalls(year, make, model, vin)
-      .then(res => console.log(`get recalls: ${res.data}`))
+      .then(res => {
+        const obj = this.state.panels;
+        obj[1].content = res.data.join(', ');
+        this.setState({ panels: obj });
+      })
 
       .catch(err => console.log(err));
   };
 
   getUpcoming = (year, make, model, mileage, vin) => {
     API.getUpcoming(year, make, model, mileage, vin)
-      .then(res => console.log(`upcoming: ${res.data}`))
+      .then(res => {
+        const obj = this.state.panels;
+        obj[2].content = res.data.join(', ');
+        this.setState({ panels: obj });
+      })
 
       .catch(err => console.log(err));
   };
 
   getWarranty = (year, make, model, vin) => {
     API.getWarranty(year, make, model, vin)
-      .then(res => console.log(`warranty: ${res.data}`))
+      .then(res => {
+        const obj = this.state.panels;
+        obj[3].content = res.data.join(', ');
+        this.setState({ panels: obj });
+      })
 
       .catch(err => console.log(err));
   };

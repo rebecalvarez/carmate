@@ -16,26 +16,33 @@ passport.deserializeUser((id, done) => {
 
 
 passport.use(
-  new GoogleStrategy({
-    clientID: process.env.GOOGLE_USER_CLIENTID,
-    clientSecret: process.env.GOOGLE_USER_CLIENTSECRET,
-    callbackURL: '/auth/google/redirect'
-  }, (accessToken, refreshToken, profile, done) => {
-    User.findOne({googleid: profile.id}).then((currentUser)=>{
-      if(currentUser){
-        console.log('User ' + currentUser + ' is logged in.');
-        done(null, currentUser);
-      } else {
-        new User({
-          username: profile.displayName,
-          googleid: profile.id
-        }).save().then((newUser) => {
-          console.log('New user ' + newUser + ' has been added to database.');
-          done(null, newUser);
-        });
-      }
-    });
-  }
+  new GoogleStrategy(
+    {
+      callbackURL: '/auth/google/redirect',
+      clientID: process.env.GOOGLE_USER_CLIENTID,
+      clientSecret: process.env.GOOGLE_USER_CLIENTSECRET,
+      proxy: true
+    },
+    (accessToken, refreshToken, profile, done) => {
+      User.findOne({ googleid: profile.id }).then(currentUser => {
+        if (currentUser) {
+          console.log('User ' + currentUser + ' is logged in.');
+          done(null, currentUser);
+        } else {
+          new User({
+            username: profile.displayName,
+            googleid: profile.id
+          })
+            .save()
+            .then(newUser => {
+              console.log(
+                'New user ' + newUser + ' has been added to database.'
+              );
+              done(null, newUser);
+            });
+        }
+      });
+    }
   )
 );
 
