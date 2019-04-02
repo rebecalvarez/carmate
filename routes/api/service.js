@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const servicesController = require('../../controllers/servicesController');
+// const servicesController = require('../../controllers/servicesController');
 const axios = require('axios');
 const AUTH_KEY = `Basic ${process.env.REACT_APP_CARMD_AUTH_KEY}`;
 const PARTNER_TOKEN = process.env.REACT_APP_CARMD_PARTNER_TOKEN;
@@ -59,7 +59,16 @@ router.get('/getMaintenance', (req, res) => {
       }
     })
     .then(function(response) {
-      const maintenanceData = response.data.data;
+      const maintenanceData = {};
+      maintenanceData.maintenanceServices = [];
+      for(var i = 0; i < response.data.data.length; i++) {
+        maintenanceServiceItem = {};
+        maintenanceServiceItem.description = response.data.data[i].desc;
+        maintenanceServiceItem.dueMileage = response.data.data[i].due_mileage;
+        maintenanceData.maintenanceServices.push(maintenanceServiceItem);
+      }
+      maintenanceData.category = 'maintenance';
+      // maintenanceData.totalCost = response.data.data.repair.total_cost;
       // const maintenanceData = response.data.data.map(
       //   data => `${data.desc} at ${data.due_mileage} miles\n`
       // );
@@ -71,13 +80,14 @@ router.get('/getMaintenance', (req, res) => {
       // }).catch(function (error) {
       //   return error;
       // });
+      console.log(maintenanceData);
 
       db.Service.collection
-        .insertMany(maintenanceData)
+        .save(maintenanceData)
         .then(function(dbServices) {
           dbServices.ops;
           const dbResponse = dbServices.ops.map(
-            data => `${data.desc} at ${data.due_mileage}`
+            data => `${data.description} at ${data.dueMileage}`
           );
           res.json(dbResponse);
         })
@@ -109,7 +119,7 @@ router.get('/getRecalls', (req, res) => {
       }
     })
     .then(function(response) {
-      const recallData = response.data.data;
+      // const recallData = response.data.data;
       //   const recallData = response.data.data.map(
       //     data =>
       //       `recall description: ${data.desc}\n consequence: ${
@@ -119,8 +129,19 @@ router.get('/getRecalls', (req, res) => {
       //   console.log(recallData);
       //   res.send(recallData);
       // })
+      const recallData = {};
+      recallData.recallServices = [];
+      for (var i = 0; i < response.data.data.length; i++) {
+        recallServiceItem = {};
+        recallServiceItem.description = response.data.data[i].desc;
+        recallServiceItem.correctiveAction = response.data.data[i].corrective_action;
+        recallServiceItem.consequence = response.data.data[i].consequence;
+        recallServiceItem.recallDate = response.data.data[i].recall_date;
+        recallData.recallServices.push(recallServiceItem);
+      }
+      recallData.category = 'recall';
       db.Service.collection
-        .insertMany(recallData)
+        .save(recallData)
         .then(function(dbServices) {
           dbServices.ops;
           const dbResponse = dbServices.ops.map(
@@ -159,15 +180,25 @@ router.get('/getUpcoming', (req, res) => {
       }
     })
     .then(function(response) {
-      const upcomingData = response.data.data;
+      // const upcomingData = response.data.data;
       //   const upcomingData = response.data.data.map(
       //     data => `repair: ${data.desc} total cost: ${data.total_cost}\n`
       //   );
       //   console.log(upcomingData);
       //   res.send(upcomingData);
       // })
+      const upcomingData = {};
+      upcomingData.upcomingServices = [];
+      for (var i = 0; i < response.data.data.length; i++) {
+        upcomingServiceItem = {};
+        upcomingServiceItem.description = response.data.data[i].desc;
+        upcomingServiceItem.probability = response.data.data[i].probability;
+        upcomingServiceItem.totalCost = response.data.data[i].total_cost;
+        upcomingData.upcomingServices.push(upcomingServiceItem);
+      }
+      upcomingData.category = 'upcoming';
       db.Service.collection
-        .insertMany(upcomingData)
+        .save(upcomingData)
         .then(function(dbServices) {
           dbServices.ops;
           const dbResponse = dbServices.ops.map(
@@ -204,15 +235,26 @@ router.get('/getWarranty', (req, res) => {
       }
     })
     .then(function(response) {
-      const warrantyData = response.data.data;
+      // const warrantyData = response.data.data;
       //   const warrantyData = response.data.data.map(
       //     data => `warranty: ${data.type}\n criteria:${data.criteria}\n`
       //   );
       //   console.log(warrantyData);
       //   res.send(warrantyData);
       // })
+      const warrantyData = {};
+      warrantyData.warrantyServices = [];
+      for (var i = 0; i < response.data.data.length; i++) {
+        warrantyServiceItem = {};
+        warrantyServiceItem.type = response.data.data[i].type;
+        warrantyServiceItem.criteria = response.data.data[i].criteria;
+        warrantyServiceItem.maxMiles = response.data.data[i].max_miles;
+        warrantyServiceItem.maxYear = response.data.data[i].max_year;
+        warrantyData.warrantyServices.push(warrantyServiceItem);
+      }
+      warrantyData.category = 'warranty';
       db.Service.collection
-        .insertMany(warrantyData)
+        .save(warrantyData)
         .then(function(dbServices) {
           dbServices.ops;
           const dbResponse = dbServices.ops.map(
