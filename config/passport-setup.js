@@ -19,7 +19,7 @@ passport.use(
   new GoogleStrategy(
     {
       callbackURL: '/auth/google/redirect',
-      clientID: process.env.GOOGLE_USER_CLIENTID,
+      clientID: process.env.REACT_APP_GOOGLE_USER_CLIENTID,
       clientSecret: process.env.GOOGLE_USER_CLIENTSECRET,
       proxy: true
     },
