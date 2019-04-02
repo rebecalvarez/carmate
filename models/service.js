@@ -9,8 +9,8 @@ const Schema = mongoose.Schema;
 //   date: { type: Date, default: Date.now }
 // });
 const serviceSchema = new Schema({
-  any: Schema.Types.Mixed
-//   user: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+  any: Schema.Types.Mixed,
+  date: { type: Date, default: Date.now }
 });
 
 const Service = mongoose.model('Service', serviceSchema);
