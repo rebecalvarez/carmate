@@ -68,6 +68,7 @@ router.get('/getMaintenance', (req, res) => {
         maintenanceData.maintenanceServices.push(maintenanceServiceItem);
       }
       maintenanceData.category = 'maintenance';
+      maintenanceData.completed = false;
       // maintenanceData.totalCost = response.data.data.repair.total_cost;
       // const maintenanceData = response.data.data.map(
       //   data => `${data.desc} at ${data.due_mileage} miles\n`
@@ -140,6 +141,7 @@ router.get('/getRecalls', (req, res) => {
         recallData.recallServices.push(recallServiceItem);
       }
       recallData.category = 'recall';
+      recallData.completed = false;
       db.Service.collection
         .save(recallData)
         .then(function(dbServices) {
@@ -197,6 +199,7 @@ router.get('/getUpcoming', (req, res) => {
         upcomingData.upcomingServices.push(upcomingServiceItem);
       }
       upcomingData.category = 'upcoming';
+      upcomingData.completed = false;
       db.Service.collection
         .save(upcomingData)
         .then(function(dbServices) {
@@ -253,6 +256,7 @@ router.get('/getWarranty', (req, res) => {
         warrantyData.warrantyServices.push(warrantyServiceItem);
       }
       warrantyData.category = 'warranty';
+      warrantyData.completed = false;
       db.Service.collection
         .save(warrantyData)
         .then(function(dbServices) {
