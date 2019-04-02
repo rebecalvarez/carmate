@@ -5,6 +5,7 @@ import CarForm from '../elements/CarForm';
 import Logo from './images/CARMATE-Logo-horizontal-web2.png';
 import API from '../../utils/API';
 import LandingRender from '../elements/LandingRender';
+import Login from '../../vibe/components/Login/Login';
 
 class Landing extends Component {
   state = {
@@ -66,7 +67,7 @@ class Landing extends Component {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Nav className="ml-auto float-right">
-              <Nav.Link href="/auth/google">Login</Nav.Link>
+              <Login />
               <Nav.Link href="/register">Register</Nav.Link>
             </Nav>
           </Navbar.Collapse>
