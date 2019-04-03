@@ -70,6 +70,10 @@ export default {
     });
   },
 
+  saveUser: (userData) => {
+    return axios.post('api/user', userData);
+  }
+
   // // Gets the book with the given id
   // getBook: function(id) {
   //   return axios.get('/api/books/' + id);
