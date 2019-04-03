@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Nav from 'react-bootstrap/Nav';
 // import ReactDOM from "react-dom";
 import GoogleLogin from 'react-google-login';
 // import Axios from 'axios';
@@ -30,7 +31,7 @@ export default class Login extends Component {
                     clientId= {process.env.REACT_APP_GOOGLE_USER_CLIENTID}
                     buttonText="Login"
                     render={renderProps => (
-                        <button onClick={renderProps.onClick} disabled={renderProps.disabled}>Login</button>
+                        <Nav.Link onClick={renderProps.onClick} disabled={renderProps.disabled}>Login / Register</Nav.Link>
                     )}
                     onSuccess={this.responseGoogle}
                     onFailure={this.responseGoogle}

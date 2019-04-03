@@ -12,5 +12,9 @@
     background: #328E83 !important;
 }
 
+.vinStyle {
+    vertical-align: -webkit-baseline-middle;
+}
+
 /* colors 
 #328E83 #ED7715  */
