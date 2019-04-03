@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var userSchema = new Schema({
+  //added accessToken to user schema
+  accessToken: {
+    type: String,
+    trim: true
+  },
   email: {
     type: String,
     trim: true
@@ -17,7 +22,7 @@ var userSchema = new Schema({
   googleId: {
     type: String,
     trim: true
-  },
+  }
 });
 
 const User = mongoose.model('user', userSchema);
