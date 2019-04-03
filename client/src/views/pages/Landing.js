@@ -8,6 +8,7 @@ import { Col, Row } from 'reactstrap';
 import LandingRender from '../elements/LandingRender';
 import Login from '../../vibe/components/Login/Login';
 import './style/landingstyle.css';
+import './images/landingback.png';
 
 class Landing extends Component {
   state = {
@@ -90,16 +91,12 @@ class Landing extends Component {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
+        <div className='picbackground'>
 <div className='container'>
 
-<Col md={{ size: 12, offset: 0 }} className="landingform" >
-          <Row>
-            <Col md={1} >
-            </Col>
-            <Col md={2} >
-             
-            </Col>
-            <Col md={12} >
+
+          <Row className="landingform">
+          
         <CarForm
           handleFormSubmit={this.handleFormSubmit}
           onChange={this.handleInputChange}
@@ -111,9 +108,10 @@ class Landing extends Component {
           mileage={this.state.mileage}
         />
 
-</Col>
+
           </Row>
-        </Col>
+        
+</div>
 </div>
         <LandingRender
           upcoming={this.state.upcoming}
