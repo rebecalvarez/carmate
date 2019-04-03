@@ -1,0 +1,7 @@
+.landingform {
+    background-color: rgba(63, 61, 60, 0.466);
+}
+.picbackground {
+    background-image: url('../images/landingback.png');
+    background-position: right center;
+}

@@ -16,15 +16,16 @@ class Dashboard extends Component {
     panels: [
       {
         label: 'Maintenance',
-        content: '',
+        content: ['Maintenance Information Not Available'],
       },
       {
         label: 'Recalls',
-        content: '',
+        content: ['Recalls Information Not Available'],
       },
       {
         label: 'Upcoming Repairs',
-        content: '',
+        content:
+          ['Upcoming Repairs Information Not Available'],
       },
       // {
       //   label: 'Technical Service Bulletin',
@@ -33,7 +34,8 @@ class Dashboard extends Component {
       // },
       {
         label: 'Vehicle Warranty',
-        content: '',
+        content:
+          ["Vehicle Warranty Information Not Available"],
       },
     ],
     maintenance: [],
@@ -46,10 +48,12 @@ class Dashboard extends Component {
   };
 
   getMaintenance = (year, make, model, mileage, vin) => {
+    
     API.getMaintenance(year, make, model, mileage, vin)
       .then(res => {
+        console.log ('THIS IS RES.DATA:  ',res.data)
         const obj = this.state.panels;
-        obj[0].content = res.data.join(', ');
+        obj[0].content = res.data;
         this.setState({ panels: obj });
       })
       .catch(err => console.log(err));
@@ -59,7 +63,7 @@ class Dashboard extends Component {
     API.getRecalls(year, make, model, vin)
       .then(res => {
         const obj = this.state.panels;
-        obj[1].content = res.data.join(', ');
+        obj[1].content = res.data;
         this.setState({ panels: obj });
       })
 
@@ -70,7 +74,7 @@ class Dashboard extends Component {
     API.getUpcoming(year, make, model, mileage, vin)
       .then(res => {
         const obj = this.state.panels;
-        obj[2].content = res.data.join(', ');
+        obj[2].content = res.data;
         this.setState({ panels: obj });
       })
 
@@ -81,7 +85,7 @@ class Dashboard extends Component {
     API.getWarranty(year, make, model, vin)
       .then(res => {
         const obj = this.state.panels;
-        obj[3].content = res.data.join(', ');
+        obj[3].content = res.data;
         this.setState({ panels: obj });
       })
 
@@ -97,7 +101,7 @@ class Dashboard extends Component {
   };
 
   handleFormSubmit = event => {
-    event.preventDefault();
+    event.preventDefault();    
     this.getMaintenance(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin);
     this.getRecalls(this.state.year, this.state.make, this.state.model, this.state.vin);
     this.getUpcoming(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin);
@@ -107,7 +111,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="dark" variant="dark" expand="lg">
           <Navbar.Brand href="/dashboard">
             <img src={Logo} alt="CarMate Logo" />
           </Navbar.Brand>
