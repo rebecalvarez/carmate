@@ -4,7 +4,8 @@ import Nav from 'react-bootstrap/Nav';
 import CarForm from '../elements/CarForm';
 import Logo from './images/CARMATE-Logo-horizontal-web2.png';
 import API from '../../utils/API';
-import { Col, Row } from 'reactstrap';
+// Removed Col from reactstrap imports
+import { Row } from 'reactstrap';
 import LandingRender from '../elements/LandingRender';
 import Login from '../../vibe/components/Login/Login';
 import './style/landingstyle.css';
