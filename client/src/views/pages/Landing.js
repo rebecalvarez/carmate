@@ -5,6 +5,7 @@ import CarForm from '../elements/CarForm';
 import Logo from './images/CARMATE-Logo-horizontal-web2.png';
 import API from '../../utils/API';
 import LandingRender from '../elements/LandingRender';
+import Login from '../../vibe/components/Login/Login';
 
 class Landing extends Component {
   state = {
@@ -18,6 +19,7 @@ class Landing extends Component {
     model: '',
     year: '',
     vin: '',
+    userData: {},
   };
 
   getFields = (year, make, model, mileage, vin) => {
@@ -56,6 +58,15 @@ class Landing extends Component {
     this.getFields(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin);
   };
 
+  saveUser = (response) => {
+    
+    console.log("11", response)
+    API.saveUser({
+      userData: this.state.userData
+    }).catch(err => console.log(err));
+
+  };
+
   render() {
     return (
       <div>
@@ -66,7 +77,10 @@ class Landing extends Component {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Nav className="ml-auto float-right">
-              <Nav.Link href="/auth/login">Login</Nav.Link>
+              <Login
+                saveUser={this.saveUser}
+                
+              />
               <Nav.Link href="/register">Register</Nav.Link>
             </Nav>
           </Navbar.Collapse>

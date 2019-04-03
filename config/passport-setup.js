@@ -8,17 +8,20 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  User.findById(id).then(user => {
+  User.findById(id).then((user) => {
     done(null, user);
   });
 });
+
+
 
 passport.use(
   new GoogleStrategy(
     {
       callbackURL: '/auth/google/redirect',
-      clientID: process.env.GOOGLE_USER_CLIENTID,
-      clientSecret: process.env.GOOGLE_USER_CLIENTSECRET
+      clientID: process.env.REACT_APP_GOOGLE_USER_CLIENTID,
+      clientSecret: process.env.GOOGLE_USER_CLIENTSECRET,
+      proxy: true
     },
     (accessToken, refreshToken, profile, done) => {
       User.findOne({ googleid: profile.id }).then(currentUser => {
@@ -42,3 +45,5 @@ passport.use(
     }
   )
 );
+
+module.exports = passport;
