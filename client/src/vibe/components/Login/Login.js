@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-// import ReactDOM from "react-dom";
 import GoogleLogin from 'react-google-login';
-// import Axios from 'axios';
 import API from '../../../utils/API';
 
 export default class Login extends Component {
@@ -12,14 +10,12 @@ export default class Login extends Component {
         }
         this.responseGoogle = this.responseGoogle.bind(this)
     }
-    // componentDidMount() {
-    //     var data = responseGoogle()
-    //     Axios.
-    // }
+
     responseGoogle = (response) => {
-        this.setState({userData: response.profileObj})
-        console.log("responseGoogle", this.state.userData)
-        API.saveUser(this.state.userData)
+        this.setState({userData: response.profileObj});
+        console.log("responseGoogle", this.state.userData);
+        API.saveUser(this.state.userData);
+        API.redirectUser();
     }
 
 
@@ -35,6 +31,8 @@ export default class Login extends Component {
                     onSuccess={this.responseGoogle}
                     onFailure={this.responseGoogle}
                     cookiePolicy={'single_host_origin'}
+                    uxMode='redirect'
+                    redirectUri="http://localhost:3000/dashboard"              
                 />
             </div>
         )

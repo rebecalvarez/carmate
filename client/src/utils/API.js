@@ -72,7 +72,13 @@ export default {
 
   saveUser: (userData) => {
     return axios.post('api/user', userData);
+  },
+
+  redirectUser: () => {
+    return axios.get('/dashboard');
   }
+
+
 
   // // Gets the book with the given id
   // getBook: function(id) {
