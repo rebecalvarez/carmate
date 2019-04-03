@@ -127,7 +127,7 @@ router.get('/getRecalls', (req, res) => {
         recallData.recallServices.push(recallServiceItem);
       }
       // Adding category to recall data object
-      recallServiceItem.category = 'recall';
+      recallData.category = 'recall';
       db.Service.collection
         // Save recall data object with array recallServices
         .save(recallData)
@@ -168,32 +168,31 @@ router.get('/getUpcoming', (req, res) => {
       }
     })
     .then(function(response) {
-      // const upcomingData = response.data.data;
-      //   const upcomingData = response.data.data.map(
-      //     data => `repair: ${data.desc} total cost: ${data.total_cost}\n`
-      //   );
-      //   console.log(upcomingData);
-      //   res.send(upcomingData);
-      // })
+      // Initializing object for upcoming services response
       const upcomingData = {};
+      // Setting array for all upcoming services items
       upcomingData.upcomingServices = [];
+      // Looping through the upcoming services items and saving its details
       for (var i = 0; i < response.data.data.length; i++) {
         upcomingServiceItem = {};
         upcomingServiceItem.description = response.data.data[i].desc;
         upcomingServiceItem.probability = response.data.data[i].probability;
         upcomingServiceItem.totalCost = response.data.data[i].total_cost;
+        upcomingServiceItem.completed = false;
         upcomingData.upcomingServices.push(upcomingServiceItem);
       }
+      // Adding upcoming category to saved data
       upcomingData.category = 'upcoming';
-      upcomingData.completed = false;
+      // Saving to Service collection
+      // console.log(upcomingData);
       db.Service.collection
         .save(upcomingData)
         .then(function(dbServices) {
-          dbServices.ops;
-          const dbResponse = dbServices.ops.map(
-            data => `repair: ${data.desc} total cost: ${data.total_cost}`
+          // Map through upcoming services array and get its upcoming service details
+          const dbResponse = dbServices.ops[0].upcomingServices.map(
+            data => `REPAIR: ${data.description} TOTAL COST: ${data.totalCost} PROBABILITY: ${data.probability}`
           );
-          console.log(dbResponse);
+          // console.log(dbResponse);
           res.json(dbResponse);
         })
         .catch(function(error) {
@@ -224,31 +223,29 @@ router.get('/getWarranty', (req, res) => {
       }
     })
     .then(function(response) {
-      // const warrantyData = response.data.data;
-      //   const warrantyData = response.data.data.map(
-      //     data => `warranty: ${data.type}\n criteria:${data.criteria}\n`
-      //   );
-      //   console.log(warrantyData);
-      //   res.send(warrantyData);
-      // })
+      // Initialize warranty data object to save response data
       const warrantyData = {};
+      // Array for warranty services items
       warrantyData.warrantyServices = [];
+      // Looping through response data to retrieve warranty services items details
       for (var i = 0; i < response.data.data.length; i++) {
         warrantyServiceItem = {};
         warrantyServiceItem.type = response.data.data[i].type;
         warrantyServiceItem.criteria = response.data.data[i].criteria;
         warrantyServiceItem.maxMiles = response.data.data[i].max_miles;
         warrantyServiceItem.maxYear = response.data.data[i].max_year;
+        warrantyServiceItem.completed = false;
         warrantyData.warrantyServices.push(warrantyServiceItem);
       }
+      // Setting category for warranty data
       warrantyData.category = 'warranty';
-      warrantyData.completed = false;
+      // Saving warranty data to DB
       db.Service.collection
         .save(warrantyData)
         .then(function(dbServices) {
-          dbServices.ops;
-          const dbResponse = dbServices.ops.map(
-            data => `warranty: ${data.type} criteria ${data.criteria}`
+          // Map through warranty services to send to client
+          const dbResponse = dbServices.ops[0].warrantyServices.map(
+            data => `WARRANTY: ${data.type} CRITERIA: ${data.criteria} MAX MILES: ${data.maxMiles} MAX YEAR: ${data.maxYear}`
           );
           console.log(dbResponse);
           res.json(dbResponse);
