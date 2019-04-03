@@ -40,7 +40,11 @@ mongoose.connect(
   }
 );
 
+app.on('listening', function () {
+  console.log('ok, server is running');
+});
 // Start the API server
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
+
