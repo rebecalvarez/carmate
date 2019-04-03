@@ -22,7 +22,7 @@ export default class Login extends Component {
     accessToken.accessToken = response.accessToken;
     //combining the accessToken object with the user profile object into new Object newUserData
     const newUserData = Object.assign(userData, accessToken);
-    console.log(newUserData, response.hg.id_token);
+    console.log(newUserData);
     this.setState({ userData: newUserData });
     //saving newObj with access token to userData
     API.saveUser(this.state.userData);
