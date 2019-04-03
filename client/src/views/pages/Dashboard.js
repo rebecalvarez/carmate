@@ -104,8 +104,8 @@ class Dashboard extends Component {
     event.preventDefault();    
     this.getMaintenance(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin);
     this.getRecalls(this.state.year, this.state.make, this.state.model, this.state.vin);
-    this.getUpcoming(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin);
-    this.getWarranty(this.state.year, this.state.make, this.state.model, this.state.vin);
+    // this.getUpcoming(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin);
+    // this.getWarranty(this.state.year, this.state.make, this.state.model, this.state.vin);
   };
 
   render() {
