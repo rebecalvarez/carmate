@@ -7,6 +7,7 @@ import API from '../../utils/API';
 import { Col, Row } from 'reactstrap';
 import LandingRender from '../elements/LandingRender';
 import Login from '../../vibe/components/Login/Login';
+import './style/landingstyle.css';
 
 class Landing extends Component {
   state = {
@@ -93,7 +94,8 @@ class Landing extends Component {
 
 <Col md={{ size: 12, offset: 0 }} className="landingform" >
           <Row>
-            <Col md={1} />
+            <Col md={1} >
+            </Col>
             <Col md={2} >
              
             </Col>
