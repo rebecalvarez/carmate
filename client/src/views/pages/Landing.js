@@ -6,7 +6,7 @@ import Logo from './images/CARMATE-Logo-horizontal-web2.png';
 import API from '../../utils/API';
 import { Col, Row } from 'reactstrap';
 import LandingRender from '../elements/LandingRender';
-import  './style/landingstyle.css';
+import Login from '../../vibe/components/Login/Login';
 
 class Landing extends Component {
   state = {
@@ -20,6 +20,7 @@ class Landing extends Component {
     model: '',
     year: '',
     vin: '',
+    userData: {},
   };
 
   getFields = (year, make, model, mileage, vin) => {
@@ -58,6 +59,15 @@ class Landing extends Component {
     this.getFields(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin);
   };
 
+  saveUser = (response) => {
+    
+    console.log("11", response)
+    API.saveUser({
+      userData: this.state.userData
+    }).catch(err => console.log(err));
+
+  };
+
   render() {
     
     
@@ -67,10 +77,14 @@ class Landing extends Component {
           <Navbar.Brand href="/dashboard">
             <img src={Logo} alt="CarMate Logo" />
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
+
+          <Navbar.Toggle />
+          <Navbar.Collapse  id="basic-navbar-nav" className="justify-content-end">
             <Nav className="ml-auto">
-              <Nav.Link href="/auth/login">Login</Nav.Link>
+              <Login
+                saveUser={this.saveUser}          
+              />
+
               <Nav.Link href="/register">Register</Nav.Link>
             </Nav>
           </Navbar.Collapse>

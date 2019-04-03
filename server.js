@@ -5,8 +5,8 @@ require('dotenv').config();
 
 // Auth Dependancies
 const authRoutes = require('./routes/auth-routes');
-const profileRoutes = require('./routes/profile-routes');
-const passportSetup = require('./config/passport-setup');
+const userRoutes = require('./routes/api/user');
+// const passportSetup = require('./config/passport-setup');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 
@@ -41,9 +41,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Add routes, both API and view
-app.use(routes);
 app.use('/auth', authRoutes);
-app.use('/profile', profileRoutes);
+app.use('/api', userRoutes);
+app.use(routes);
+
 
 // Connect to the Mongo DB
 mongoose.connect(
