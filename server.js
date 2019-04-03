@@ -4,11 +4,10 @@ const logger = require('morgan');
 require('dotenv').config();
 
 // Auth Dependancies
-const authRoutes = require('./routes/auth-routes');
 const userRoutes = require('./routes/api/user');
 // const passportSetup = require('./config/passport-setup');
-const passport = require('passport');
-const cookieSession = require('cookie-session');
+// const passport = require('passport');
+// const cookieSession = require('cookie-session');
 
 // Other dependencies
 const mongoose = require('mongoose');
@@ -26,22 +25,9 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
 
-//setting cookie time limit and encrypting
-
-app.use(
-  cookieSession({
-    maxAge: 24 * 60 * 60 * 1000,
-    keys: [process.env.SESSION_COOKIE_ENCRYPT]
-  })
-);
-
-//initialize passport
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 // Add routes, both API and view
-app.use('/auth', authRoutes);
+
 app.use('/api', userRoutes);
 app.use(routes);
 
