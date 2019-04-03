@@ -29,7 +29,7 @@ router.get('/availableFields', (req, res) => {
       }
     })
     .then(function(response) {
-      console.log(response.data);
+      // console.log(response.data);
       res.send(response.data.data);
     })
     .catch(err =>
@@ -39,7 +39,7 @@ router.get('/availableFields', (req, res) => {
 
 router.get('/getMaintenance', (req, res) => {
   const BASEURL = 'https://api.carmd.com/v3.0/maint?';
-  console.log(req.query);
+  // console.log(req.query);
   let queryURL;
   const year = `year=${req.query.year}&`;
   const make = `make=${req.query.make}&`;
@@ -59,37 +59,29 @@ router.get('/getMaintenance', (req, res) => {
       }
     })
     .then(function(response) {
+      // Starting object to send to DB
       const maintenanceData = {};
+      // Array for maintenance services with its appropriate properties
       maintenanceData.maintenanceServices = [];
       for(var i = 0; i < response.data.data.length; i++) {
         maintenanceServiceItem = {};
         maintenanceServiceItem.description = response.data.data[i].desc;
         maintenanceServiceItem.dueMileage = response.data.data[i].due_mileage;
+        maintenanceServiceItem.totalCost = response.data.data[i].repair.total_cost;
+        maintenanceServiceItem.completed = false;
         maintenanceData.maintenanceServices.push(maintenanceServiceItem);
       }
+      // Adding category type to maintenanceData to later show in appropriate section
       maintenanceData.category = 'maintenance';
-      maintenanceData.completed = false;
-      // maintenanceData.totalCost = response.data.data.repair.total_cost;
-      // const maintenanceData = response.data.data.map(
-      //   data => `${data.desc} at ${data.due_mileage} miles\n`
-      // );
-      // console.log(maintenanceData);
-
-      // db.Service.create(maintenanceData).then(function (dbServices) {
-      //   console.log(dbServices);
-      //   response.json(dbServices);
-      // }).catch(function (error) {
-      //   return error;
-      // });
-      console.log(maintenanceData);
-
+      // Saving maintenanceData to MongoDb
       db.Service.collection
         .save(maintenanceData)
         .then(function(dbServices) {
-          dbServices.ops;
-          const dbResponse = dbServices.ops.map(
-            data => `${data.description} at ${data.dueMileage}`
+          // Mapping through array of maintenance services along with descritpion and due mileage
+          const dbResponse = dbServices.ops[0].maintenanceServices.map(
+            data => `${data.description} at ${data.dueMileage} for average cost of ${data.totalCost}`
           );
+          // Sending response to Client
           res.json(dbResponse);
         })
         .catch(function(error) {
@@ -120,43 +112,37 @@ router.get('/getRecalls', (req, res) => {
       }
     })
     .then(function(response) {
-      // const recallData = response.data.data;
-      //   const recallData = response.data.data.map(
-      //     data =>
-      //       `recall description: ${data.desc}\n consequence: ${
-      //         data.consequence
-      //       }\n recall date: ${data.recall_date}\n`
-      //   );
-      //   console.log(recallData);
-      //   res.send(recallData);
-      // })
+      // Starting object to send to DB
       const recallData = {};
+      // Array for recall services with its appropriate properties
       recallData.recallServices = [];
+      // Loop through response length and save items
       for (var i = 0; i < response.data.data.length; i++) {
         recallServiceItem = {};
         recallServiceItem.description = response.data.data[i].desc;
         recallServiceItem.correctiveAction = response.data.data[i].corrective_action;
         recallServiceItem.consequence = response.data.data[i].consequence;
         recallServiceItem.recallDate = response.data.data[i].recall_date;
+        recallServiceItem.completed = false;
         recallData.recallServices.push(recallServiceItem);
       }
-      recallData.category = 'recall';
-      recallData.completed = false;
+      // Adding category to recall data object
+      recallServiceItem.category = 'recall';
       db.Service.collection
+        // Save recall data object with array recallServices
         .save(recallData)
         .then(function(dbServices) {
-          dbServices.ops;
-          const dbResponse = dbServices.ops.map(
-            data => `${data.desc} at ${data.recall_date}`
+          // Loop through recallServices array to map out each item's details
+          const dbResponse = dbServices.ops[0].recallServices.map(
+            data => `${data.description} for CORRECTIVE ACTION: ${data.correctiveAction} at ${data.recallDate}, CONSEQUENCE COULD BE: ${data.consequence}`
           );
-          console.log(dbResponse);
+          // console.log(dbResponse);
           res.json(dbResponse);
         })
         .catch(function(error) {
           return error;
         });
     })
-
     .catch(err => console.log(err.message, 'recalls don\'t exist!'));
 });
 
