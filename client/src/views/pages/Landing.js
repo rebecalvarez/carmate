@@ -86,7 +86,7 @@ class Landing extends Component {
                 saveUser={this.saveUser}          
               />
 
-              <Nav.Link href="/register">Register</Nav.Link>
+              
             </Nav>
           </Navbar.Collapse>
         </Navbar>
