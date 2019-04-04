@@ -2,7 +2,7 @@
 const router = require('express').Router();
 
 
-router.use('/dashboard')
+router.get('/dashboard');
 // router.use(function(req, res) {
 //     res.sendFile(path.join(__dirname, ));
 //   });
