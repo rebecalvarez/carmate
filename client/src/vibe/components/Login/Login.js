@@ -3,13 +3,17 @@ import Nav from 'react-bootstrap/Nav';
 // import ReactDOM from "react-dom";
 import GoogleLogin from 'react-google-login';
 import API from '../../../utils/API';
-import { Route, Redirect } from 'react-router'
+
 
 export default class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
             userData: {},
+            isAuthenticated: false,
+            user: null,
+            token: '',
+            redirectUrl: 'http://localhost:3000'
         };
         this.responseGoogle = this.responseGoogle.bind(this);
     }
@@ -26,9 +30,18 @@ export default class Login extends Component {
         this.setState({ userData: newUserData });
         //saving newObj with access token to userData
         API.saveUser(this.state.userData);
-
+        document.location.href = '/dashboard';
     };
 
+    logout = () => {
+        this.setState({
+            userData: {},
+            isAuthenticated: false,
+            user: null,
+            token: ''
+        });
+    };
+    
     onFailure = (error) => {
         alert(error);
     };
@@ -47,8 +60,7 @@ export default class Login extends Component {
                     onSuccess={this.responseGoogle}
                     onFailure={this.onFailure}
                     cookiePolicy={'single_host_origin'}
-                    uxMode="redirect"
-                    redirectUri="http://localhost:3000/dashboard"
+
                 />
             </div>
         );
