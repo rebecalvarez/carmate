@@ -1,0 +1,23 @@
+.form-container {
+    margin-top: 25px;
+}
+.spacing {
+    margin:10px;
+    text-align: center;
+
+}
+.button-style {
+    color: #ffffff !important;
+   
+    background: #328E83 !important;
+}
+
+.vinStyle {
+    vertical-align: -webkit-baseline-middle;
+}
+
+/* colors 
+#328E83 #ED7715  */
+.labelcolor{
+    color: white !important;
+}

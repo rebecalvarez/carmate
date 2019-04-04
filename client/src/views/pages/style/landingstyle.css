@@ -1,7 +1,45 @@
 .landingform {
     background-color: rgba(63, 61, 60, 0.466);
+    border-radius: 10px;
+    border: 1px #ffffffa8;
+    border: 5px solid rgba(252, 252, 252, 0.205);
+    
 }
 .picbackground {
     background-image: url('../images/landingback.png');
     background-position: right center;
+}
+
+.spacinglanding {
+    height: 20px;
+}
+
+.formcontainer{
+    width: 60%;
+    padding-top: 20px;
+    border-radius: 5px;
+    margin: 0 auto;
+}
+
+.titles {
+  color: #ffffff;
+    text-align: center;
+    background-color: rgba(63, 61, 60, 0.651);
+    padding: 10px;
+    
+
+}
+
+.tealcolor{
+    color: rgb(211, 253, 248);
+}
+.orangecolor{
+    color: rgb(255, 213, 124);
+    font-weight: 600;
+    /* text-shadow: -1px 0 #ffffff91, 0 1px #ffffff91, 1px 0 #ffffff91, 0 -1px #ffffff91; */
+}
+.orange{
+    color: rgb(255, 213, 124);
+   
+    /* text-shadow: -1px 0 #ffffff91, 0 1px #ffffff91, 1px 0 #ffffff91, 0 -1px #ffffff91; */
 }

@@ -1,0 +1,9 @@
+.rendertitle{
+    text-decoration: underline;
+    color: #343A40;
+}
+body
+{
+    color: #343A40;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import CarForm from '../elements/CarForm';
+import CarFormLanding from '../elements/CarFormLanding';
 import Logo from './images/CARMATE-Logo-horizontal-web2.png';
 import API from '../../utils/API';
 // Removed Col from reactstrap imports
@@ -93,12 +93,18 @@ class Landing extends Component {
           </Navbar.Collapse>
         </Navbar>
         <div className='picbackground'>
-<div className='container'>
+        <div className="titles "><h2 className='orangecolor'>Are you taking good care of your Car?</h2>
+            <h4 className="tealcolor">Sometimes it's hard to know if you are getting the right information from 
+              the shop.
+              </h4>
+              <p className="tealcolor">FIND OUT FOR YOURSELF! Just enter the info below.</p>
+              </div>
+<div className='formcontainer'>
 
 
           <Row className="landingform">
           
-        <CarForm
+        <CarFormLanding
           handleFormSubmit={this.handleFormSubmit}
           onChange={this.handleInputChange}
           getFields={this.getFields}
@@ -113,6 +119,7 @@ class Landing extends Component {
           </Row>
         
 </div>
+<div className="spacinglanding"></div>
 </div>
         <LandingRender
           upcoming={this.state.upcoming}
