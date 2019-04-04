@@ -25,6 +25,8 @@ export default class Login extends Component {
     this.setState({ userData: newUserData });
     //saving newObj with access token to userData
     API.saveUser(this.state.userData);
+    // API.redirectUser();
+    
   };
 
   render() {
