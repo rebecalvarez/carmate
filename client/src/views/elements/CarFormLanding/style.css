@@ -1,0 +1,34 @@
+.form-container {
+   
+    display: block;
+ 
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding-left: 10%;
+  padding-right: 10%;
+ 
+ 
+}
+.spacing {
+    margin:10px;
+    text-align: center;
+
+}
+.button-style {
+    color: #ffffff !important;
+   
+    background: #328E83 !important;
+}
+
+.vinStyle {
+    vertical-align: -webkit-baseline-middle;
+}
+
+/* colors 
+#328E83 #ED7715  */
+.labelcolor{
+    color: #D3F0D4 !important;
+    font-weight: 600;
+    font-size: 18px;
+}

@@ -1,31 +1,41 @@
 import React from 'react';
 import './style.css';
+import Icon from './images/iconcheck.png'
 
 function LandingRender(props) {
   return (
-    <div>
+    <div className="container ">
       <ul
         style={{
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          alignItems: 'center',
+          alignItems: 'left',
           listStyleType: 'none',
-          marginTop: '5vh',
+          marginTop: '5vh'
+         
         }}
       >
         {' '}
         {props.upcoming || props.tsb || props.maint || props.recall || props.warranty ? (
-          <h4 style={{ textDecoration: 'underline' }}>The following information is available for your vehicle:</h4>
+          <div><h3 className="rendertitle">The following information is available for your vehicle:</h3>
+  
+          </div>
         ) : null}
-        <li>{props.upcoming ? 'Upcoming Repairs' : null}</li>
-        <li>{props.tsb ? 'Technical Service Bulletin' : null}</li>
-        <li>{props.maint ? 'Maintenance' : null}</li>
-        <li>{props.recall ? 'Safety Recalls' : null}</li>
-        <li>{props.warranty ? 'Warranty Information' : null}</li>
+        <li className='line'>{props.upcoming ? <p><img src={Icon} alt='check'/>Upcoming Repairs </p>  : null}</li>
+        {/* <li className='line'>{props.tsb ? <p><img src={Icon} alt='check'/>Technical Service Bulletin</p> : null}</li> */}
+        <li className='line'>{props.maint ? <p><img src={Icon} alt='check'/>Maintenance</p>  : null}</li>
+        <li className='line'>{props.recall ? <p><img src={Icon} alt='check'/>Safety Recalls</p>  : null}</li>
+        <li className='line'>{props.warranty ? <p><img src={Icon} alt='check'/>Warranty Information</p>  : null}</li>
       </ul>
+      {props.upcoming || props.tsb || props.maint || props.recall || props.warranty ? (
+          <div>
+          <h4 className="rendersubtitle">Create an account to see more details...</h4>
+          </div>
+        ) : null}
     </div>
   );
 }
+
 
 export default LandingRender;
