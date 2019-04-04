@@ -99,7 +99,7 @@ class Landing extends Component {
               </h4>
               <p className="tealcolor">FIND OUT FOR YOURSELF! Just enter the info below.</p>
               </div>
-<div className='formcontainer'>
+<div className='container'>
 
 
           <Row className="landingform">
@@ -119,8 +119,9 @@ class Landing extends Component {
           </Row>
         
 </div>
-<div className="spacinglanding"></div>
-</div>
+<div className="spacinglanding "></div>
+</div >
+<div className="formcontainer container">
         <LandingRender
           upcoming={this.state.upcoming}
           tsb={this.state.tsb}
@@ -128,7 +129,7 @@ class Landing extends Component {
           recall={this.state.recall}
           warranty={this.state.warranty}
         />
-
+</div>
       </div>
     );
   }

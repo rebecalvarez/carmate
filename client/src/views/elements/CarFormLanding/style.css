@@ -1,5 +1,14 @@
 .form-container {
-    margin-top: 25px;
+   
+    display: block;
+ 
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding-left: 10%;
+  padding-right: 10%;
+ 
+ 
 }
 .spacing {
     margin:10px;
@@ -19,5 +28,7 @@
 /* colors 
 #328E83 #ED7715  */
 .labelcolor{
-    color: white !important;
+    color: #D3F0D4 !important;
+    font-weight: 600;
+    font-size: 18px;
 }

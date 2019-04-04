@@ -10,9 +10,10 @@ const CarFormLanding = props => {
     // Mileage
     // OR
     // VIN
-    <div>
-      <Form className="form-container">
-        <Col md={{ size: 8, offset: 2 }}>
+    <div className="form-container">
+      <Form >
+     
+        {/* <Col md={{ size: 8, offset: 2 }}> */}
        
           <Row form="true">
             <Col md={3}>
@@ -62,7 +63,7 @@ const CarFormLanding = props => {
             </Col>
           </Row>
           <Row>
-            <Col className="labelcolor" className="spacing">OR</Col>
+            <Col className="labelcolor spacing">OR</Col>
           </Row>
 
           <Row form="true">
@@ -91,11 +92,12 @@ const CarFormLanding = props => {
           <Row>
             <Col className="spacing">
               <Button className="button-style" onClick={props.handleFormSubmit}>
-                Find Vehicle
+                Find My Vehicle
               </Button>
             </Col>
           </Row>
-        </Col>
+        {/* </Col> */}
+     
       </Form>
     </div>
   );
