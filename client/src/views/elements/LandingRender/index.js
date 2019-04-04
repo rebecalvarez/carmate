@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.css';
+import Icon from './images/iconcheck.png'
 
 function LandingRender(props) {
   return (
@@ -16,7 +17,7 @@ function LandingRender(props) {
       >
         {' '}
         {props.upcoming || props.tsb || props.maint || props.recall || props.warranty ? (
-          <h4 style={{ textDecoration: 'underline' }}>The following information is available for your vehicle:</h4>
+          <h4 className="rendertitle">The following information is available for your vehicle:</h4>
         ) : null}
         <li>{props.upcoming ? 'Upcoming Repairs' : null}</li>
         <li>{props.tsb ? 'Technical Service Bulletin' : null}</li>
@@ -28,4 +29,5 @@ function LandingRender(props) {
   );
 }
 
+{/* <img src={Icon}></img> */} //icon 
 export default LandingRender;

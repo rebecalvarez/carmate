@@ -12,11 +12,8 @@ const CarForm = props => {
     // VIN
     <div>
       <Form className="form-container">
-        <Col md={{ size: 6, offset: 3 }}>
-          <Row>
-            {' '}
-            <Col className="spacing">Please fill out the following information to update your vehicle</Col>
-          </Row>
+        <Col md={{ size: 8, offset: 2 }}>
+       
           <Row form="true">
             <Col md={3}>
               <FormGroup>
