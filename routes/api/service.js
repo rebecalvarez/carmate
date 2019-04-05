@@ -7,17 +7,22 @@ const db = require('../../models');
 
 // Matches with "/api/service/availableFields"
 
+//Get available fields for landing page
 router.get('/availableFields', (req, res) => {
+  // Initializing base url for axios to search in CarMD
   const BASEURL = 'https://api.carmd.com/v3.0/fields?';
-  console.log(req.query);
+  // console.log('req query', req.query);
+  // Concatenating for query url based on user input
   let queryURL;
   const year = `year=${req.query.year}&`;
   const make = `make=${req.query.make}&`;
   const model = `model=${req.query.model}&`;
   const mileage = `mileage=${req.query.mileage}`;
   const vin = `vin=${req.query.vin}&`;
+  // if vin is used, use vin and mileage to search CarMD
   req.query.vin
     ? (queryURL = BASEURL + vin + mileage)
+    // if no vin, use year make model and mileage to search CarMD
     : (queryURL = BASEURL + year + make + model + mileage);
   console.log(queryURL);
   axios
@@ -37,19 +42,22 @@ router.get('/availableFields', (req, res) => {
     );
 });
 
+// Route to make API call to CarMD
 router.get('/getMaintenance', (req, res) => {
+  // Setting up Axios URL
   const BASEURL = 'https://api.carmd.com/v3.0/maint?';
-  // console.log(req.query);
+  // Concatenating query parameters for Axios URL
   let queryURL;
   const year = `year=${req.query.year}&`;
   const make = `make=${req.query.make}&`;
   const model = `model=${req.query.model}&`;
   const mileage = `mileage=${req.query.mileage}`;
   const vin = `vin=${req.query.vin}&`;
+  // If vin is present, use vin and mileage to search CarMD
   req.query.vin
     ? (queryURL = BASEURL + vin + mileage)
+    // if no vin, use year make model and mileage to search CarMD
     : (queryURL = BASEURL + year + make + model + mileage);
-  console.log(queryURL);
   axios
     .get(queryURL, {
       headers: {
@@ -61,6 +69,7 @@ router.get('/getMaintenance', (req, res) => {
     .then(function(response) {
       // Starting object to send to DB
       const maintenanceData = {};
+      // maintenanceData.userEmail = document.cookie.replace(/(?:(?:^|.*;\s*)tokenId\s*\=\s*([^;]*).*$)|^.*$/, '$1');
       // Array for maintenance services with its appropriate properties
       maintenanceData.maintenanceServices = [];
       for(var i = 0; i < response.data.data.length; i++) {
@@ -73,6 +82,8 @@ router.get('/getMaintenance', (req, res) => {
       }
       // Adding category type to maintenanceData to later show in appropriate section
       maintenanceData.category = 'maintenance';
+      const userEmail = req.query.userEmail;
+      maintenanceData.userEmail = userEmail;
       // Saving maintenanceData to MongoDb
       db.Service.collection
         .save(maintenanceData)
@@ -91,18 +102,23 @@ router.get('/getMaintenance', (req, res) => {
     .catch(err => console.log(err.message, 'maintenance doesn\'t exist!'));
 });
 
+// Get recall data from CarMD
 router.get('/getRecalls', (req, res) => {
+  // Setting up base url for Axios
   const BASEURL = 'https://api.carmd.com/v3.0/recall?';
-  console.log(req.query);
+  // console.log(req.query);
+  // Setting up query url based on request query parameters
   let queryURL;
   const year = `year=${req.query.year}&`;
   const make = `make=${req.query.make}&`;
   const model = `model=${req.query.model}&`;
   const vin = `vin=${req.query.vin}&`;
+  // if vin is present, use vin and mileage to search CarMD
   req.query.vin
     ? (queryURL = BASEURL + vin)
+    // if no vin, use year make model and mileage to search CarMD
     : (queryURL = BASEURL + year + make + model);
-  console.log(queryURL);
+  // console.log(queryURL);
   axios
     .get(queryURL, {
       headers: {
@@ -128,6 +144,8 @@ router.get('/getRecalls', (req, res) => {
       }
       // Adding category to recall data object
       recallData.category = 'recall';
+      const userEmail = req.query.userEmail;
+      recallData.userEmail = userEmail;
       db.Service.collection
         // Save recall data object with array recallServices
         .save(recallData)
@@ -146,19 +164,25 @@ router.get('/getRecalls', (req, res) => {
     .catch(err => console.log(err.message, 'recalls don\'t exist!'));
 });
 
+// Get upcoming data from CarMD
 router.get('/getUpcoming', (req, res) => {
+  // Setting up Base URL for Axios
   const BASEURL = 'https://api.carmd.com/v3.0/upcoming?';
-  console.log(req.query);
+  // console.log(req.query);
+  // Starting query URL with request query parameters shown below
   let queryURL;
   const year = `year=${req.query.year}&`;
   const make = `make=${req.query.make}&`;
   const model = `model=${req.query.model}&`;
   const mileage = `mileage=${req.query.mileage}`;
   const vin = `vin=${req.query.vin}&`;
+  // if vin is present, use vin and mileage to search in CarMD
   req.query.vin
     ? (queryURL = BASEURL + vin + mileage)
+    // if no vin, use year make model and mileage to search in CarMD
     : (queryURL = BASEURL + year + make + model + mileage);
-  console.log(queryURL);
+  // console.log(queryURL);
+  // Axios call to CarMD using query url and .env keys
   axios
     .get(queryURL, {
       headers: {
@@ -183,6 +207,8 @@ router.get('/getUpcoming', (req, res) => {
       }
       // Adding upcoming category to saved data
       upcomingData.category = 'upcoming';
+      const userEmail = req.query.userEmail;
+      upcomingData.userEmail = userEmail;
       // Saving to Service collection
       // console.log(upcomingData);
       db.Service.collection
@@ -202,18 +228,24 @@ router.get('/getUpcoming', (req, res) => {
     .catch(err => console.log(err.message, 'no upcoming repairs!'));
 });
 
+// Warranty Data
 router.get('/getWarranty', (req, res) => {
+  // Setting up Base URL for Axios
   const BASEURL = 'https://api.carmd.com/v3.0/warranty?';
-  console.log(req.query);
+  // console.log(req.query);
+  // Adding request query parameters shown below
   let queryURL;
   const year = `year=${req.query.year}&`;
   const make = `make=${req.query.make}&`;
   const model = `model=${req.query.model}&`;
   const vin = `vin=${req.query.vin}&`;
+  // If vin is used by user, then query URL will use vin
   req.query.vin
     ? (queryURL = BASEURL + vin)
+    // If no vin, use year make and model for query URL
     : (queryURL = BASEURL + year + make + model);
-  console.log(queryURL);
+  // console.log(queryURL);
+  // Axios call using query URl and .env keys
   axios
     .get(queryURL, {
       headers: {
@@ -239,6 +271,9 @@ router.get('/getWarranty', (req, res) => {
       }
       // Setting category for warranty data
       warrantyData.category = 'warranty';
+      // Grabbing useremail from cookie and saving with services data in DB
+      const userEmail = req.query.userEmail;
+      warrantyData.userEmail = userEmail;
       // Saving warranty data to DB
       db.Service.collection
         .save(warrantyData)
@@ -256,16 +291,5 @@ router.get('/getWarranty', (req, res) => {
     })
     .catch(err => console.log(err.message, 'warranty info doesn\'t exist!'));
 });
-
-// router.route('/')
-//   // .get(servicesController.findAll)
-//   .get(servicesController.create);
-
-// Matches with "/api/books/:id"
-// router
-//   .route('/:id')
-//   .get(servicesController.findById)
-//   .put(servicesController.update)
-//   .delete(servicesController.remove);
 
 module.exports = router;
