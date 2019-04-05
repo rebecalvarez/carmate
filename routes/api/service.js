@@ -154,14 +154,16 @@ router.get('/getRecalls', (req, res) => {
         .save(recallData)
         .then(function(dbServices) {
           // Loop through recallServices array to map out each item's details
-          const dbResponse = dbServices.ops[0].recallServices.map(
-            data =>
-              `${data.description} for CORRECTIVE ACTION: ${
-                data.correctiveAction
-              } at ${data.recallDate}, CONSEQUENCE COULD BE: ${
-                data.consequence
-              }`
-          );
+          const dbResponse = dbServices.ops[0];
+
+          // .recallServices.map(
+          //   data =>
+          //     `${data.description} for CORRECTIVE ACTION: ${
+          //       data.correctiveAction
+          //     } at ${data.recallDate}, CONSEQUENCE COULD BE: ${
+          //       data.consequence
+          //     }`
+          // );
           // console.log(dbResponse);
           res.json(dbResponse);
         })
@@ -223,12 +225,14 @@ router.get('/getUpcoming', (req, res) => {
         .save(upcomingData)
         .then(function(dbServices) {
           // Map through upcoming services array and get its upcoming service details
-          const dbResponse = dbServices.ops[0].upcomingServices.map(
-            data =>
-              `REPAIR: ${data.description} TOTAL COST: ${
-                data.totalCost
-              } PROBABILITY: ${data.probability}`
-          );
+          const dbResponse = dbServices.ops[0];
+
+          // .upcomingServices.map(
+          //   data =>
+          //     `REPAIR: ${data.description} TOTAL COST: ${
+          //       data.totalCost
+          //     } PROBABILITY: ${data.probability}`
+          // );
           // console.log(dbResponse);
           res.json(dbResponse);
         })
@@ -290,12 +294,13 @@ router.get('/getWarranty', (req, res) => {
         .save(warrantyData)
         .then(function(dbServices) {
           // Map through warranty services to send to client
-          const dbResponse = dbServices.ops[0].warrantyServices.map(
-            data =>
-              `WARRANTY: ${data.type} CRITERIA: ${data.criteria} MAX MILES: ${
-                data.maxMiles
-              } MAX YEAR: ${data.maxYear}`
-          );
+          const dbResponse = dbServices.ops[0];
+          // .warrantyServices.map(
+          //   data =>
+          //     `WARRANTY: ${data.type} CRITERIA: ${data.criteria} MAX MILES: ${
+          //       data.maxMiles
+          //     } MAX YEAR: ${data.maxYear}`
+          // );
           console.log(dbResponse);
           res.json(dbResponse);
         })

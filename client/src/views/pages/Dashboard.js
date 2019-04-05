@@ -10,6 +10,7 @@ import { Col, Row } from 'reactstrap';
 import API from '../../utils/API';
 import axios from 'axios';
 import { ToggleRadioButtonChecked } from 'material-ui/svg-icons';
+import fullscreenExit from 'material-ui/svg-icons/navigation/fullscreen-exit';
 class Dashboard extends Component {
   state = {
     // This is an example of the panels information displayed
@@ -191,14 +192,19 @@ class Dashboard extends Component {
             </Col>
           </Row>
         </Col>
-        {this.state.maintenance.map(maint => (
-          <li>
-            <input type="checkbox" onChange={() => this.markComplete(maint.description)} />
-            {maint.description}, due mileage {maint.dueMileage}{' '}
-          </li>
-        ))}
+        <div className="results" style={{ display: 'flex' }}>
+          <div className="maintenance" style={{ display: 'flex', flexDirection: 'column' }}>
+            <h3>Maintenance</h3>
+            {this.state.maintenance.map(maint => (
+              <li style={{ listStyleType: 'none' }}>
+                <input type="checkbox" onChange={() => this.markComplete(maint.description)} />
+                {maint.description}, due mileage {maint.dueMileage}{' '}
+              </li>
+            ))}
+          </div>
 
-        {/* <Accordion panels={this.state.panels} /> */}
+          {/* <Accordion panels={this.state.panels} /> */}
+        </div>
       </div>
     );
   }
