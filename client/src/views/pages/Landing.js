@@ -117,6 +117,7 @@ class Landing extends Component {
             <img src={LoadingGif} className="container loading" />
           ) : (
             <LandingRender
+              saveUser={this.saveUser}
               upcoming={this.state.upcoming}
               tsb={this.state.tsb}
               maint={this.state.maint}
