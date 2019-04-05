@@ -28,12 +28,9 @@ class Panel extends Component {
     const isActive = activeTab === index;
     const innerStyle = {
       height: isActive ? `${height}px` : '0px',
-      
     };
-  
 
-
- console.log(content);
+    console.log(content);
 
     return (
       <div className="panel" role="tabpanel" aria-expanded={isActive}>
@@ -42,31 +39,31 @@ class Panel extends Component {
         </button>
         <div className="panel__inner" style={innerStyle} aria-hidden={!isActive}>
           <div className="panel__content">
-          {/* <ul>
+            {/* <ul>
           {element}
           </ul> */}
-          {/* {content} */}
-          <table class="table table-hover">
-     {
-      content.map((item, index) => 
-      
-      <tr key={index}>  <div className="check-box"><div className="input-group mb-3 ">
-      <div className="input-group-prepend ">
-        <div className="input-group-text">
-          <input type="checkbox" aria-label="Checkbox for following text input"></input>
-        </div>
-      </div>
-     <span className='item' >{item}</span>
-    </div> 
-    </div>
-</tr>
-
-      
-      
-      )
-    }
-   </table>
-        
+            {/* {content} */}
+            <table class="table table-hover">
+              {content.map((item, index) => (
+                <tr key={index}>
+                  {' '}
+                  <div className="check-box">
+                    <div className="input-group mb-3 ">
+                      <div className="input-group-prepend ">
+                        <div className="input-group-text">
+                          <input
+                            type="checkbox"
+                            aria-label="Checkbox for following text input"
+                            onChange={this.props.markComplete}
+                          />
+                        </div>
+                      </div>
+                      <span className="item">{item}</span>
+                    </div>
+                  </div>
+                </tr>
+              ))}
+            </table>
           </div>
         </div>
       </div>
@@ -91,6 +88,10 @@ export default class Accordion extends Component {
     }));
   }
 
+  markComplete = index => {
+    console.log(this.props.panels);
+  };
+
   render() {
     const { panels } = this.props;
     const { activeTab } = this.state;
@@ -104,6 +105,7 @@ export default class Accordion extends Component {
               index={index}
               {...panel}
               activateTab={this.activateTab.bind(null, index)}
+              markComplete={this.markComplete.bind(this, index)}
             />
           ))}
         </div>

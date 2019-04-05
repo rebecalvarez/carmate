@@ -8,7 +8,8 @@ import Logo from './images/CARMATE-Logo-horizontal-web2.png';
 import MaintIcon from './images/maint-sm.png';
 import { Col, Row } from 'reactstrap';
 import API from '../../utils/API';
-import axios from "axios";
+import axios from 'axios';
+import { ToggleRadioButtonChecked } from 'material-ui/svg-icons';
 class Dashboard extends Component {
   state = {
     // This is an example of the panels information displayed
@@ -16,18 +17,17 @@ class Dashboard extends Component {
       {
         label: 'Maintenance',
         content: ['Maintenance Information Not Available'],
-        isCompleted: false
+        isCompleted: false,
       },
       {
         label: 'Recalls',
         content: ['Recalls Information Not Available'],
-        isCompleted: false
+        isCompleted: false,
       },
       {
         label: 'Upcoming Repairs',
-        content:
-          ['Upcoming Repairs Information Not Available'],
-          isCompleted: false
+        content: ['Upcoming Repairs Information Not Available'],
+        isCompleted: false,
       },
       // NICE TO HAVE FOR NEXT DEV PHASE
       // {
@@ -37,8 +37,7 @@ class Dashboard extends Component {
       // },
       {
         label: 'Vehicle Warranty',
-        content:
-          ["Vehicle Warranty Information Not Available"],
+        content: ['Vehicle Warranty Information Not Available'],
       },
     ],
     maintenance: [],
@@ -48,36 +47,36 @@ class Dashboard extends Component {
     model: '',
     year: '',
     vin: '',
-    userEmail: ''
+    userEmail: '',
   };
 
-  componentDidMount = (data) => {
-      // Get cookie value to associate services with user
-      var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)tokenId\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-      console.log("Cookie Value (ln 54):", cookieValue);
-      this.setState({ userEmail: cookieValue });
-      // axios
-      //     .get(currentUrl, {
-      //         headers: {
-      //             Authorization: cookieValue,
-      //         }
-      //     })
-      //     .then(function (response) {
-      //         // console.log(response.data);
-      //         console.log("helloo" ,response.data.data);
-      //     })
-      //     .catch(err =>
-      //         console.log(err.message, 'no available fields for this model!')
-      //     );
-  }
+  componentDidMount = data => {
+    // Get cookie value to associate services with user
+    var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)tokenId\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+    console.log('Cookie Value (ln 54):', cookieValue);
+    this.setState({ userEmail: cookieValue });
+    // axios
+    //     .get(currentUrl, {
+    //         headers: {
+    //             Authorization: cookieValue,
+    //         }
+    //     })
+    //     .then(function (response) {
+    //         // console.log(response.data);
+    //         console.log("helloo" ,response.data.data);
+    //     })
+    //     .catch(err =>
+    //         console.log(err.message, 'no available fields for this model!')
+    //     );
+  };
 
   getMaintenance = (year, make, model, mileage, vin, userEmail) => {
     API.getMaintenance(year, make, model, mileage, vin, userEmail)
       .then(res => {
-        console.log ('THIS IS RES.DATA:  ',res.data)
-        const obj = this.state.panels;
-        obj[0].content = res.data;
-        this.setState({ panels: obj });
+        console.log('THIS IS RES.DATA:  ', res.data.maintenanceServices);
+        // const obj = this.state.panels;
+        // obj[0].content = res.data;
+        this.setState({ maintenance: res.data.maintenanceServices });
       })
       .catch(err => console.log(err));
   };
@@ -123,11 +122,38 @@ class Dashboard extends Component {
   };
 
   handleFormSubmit = event => {
-    event.preventDefault();    
-    this.getMaintenance(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin, this.state.userEmail);
-    this.getRecalls(this.state.year, this.state.make, this.state.model, this.state.vin, this.state.userEmail);
-    this.getUpcoming(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin, this.state.userEmail);
-    this.getWarranty(this.state.year, this.state.make, this.state.model, this.state.vin, this.state.userEmail);
+    event.preventDefault();
+    this.getMaintenance(
+      this.state.year,
+      this.state.make,
+      this.state.model,
+      this.state.mileage,
+      this.state.vin,
+      this.state.userEmail
+    );
+    // this.getRecalls(this.state.year, this.state.make, this.state.model, this.state.vin, this.state.userEmail);
+    // this.getUpcoming(
+    //   this.state.year,
+    //   this.state.make,
+    //   this.state.model,
+    //   this.state.mileage,
+    //   this.state.vin,
+    //   this.state.userEmail
+    // );
+    // this.getWarranty(this.state.year, this.state.make, this.state.model, this.state.vin, this.state.userEmail);
+  };
+
+  markComplete = description => {
+    console.log(description);
+    this.setState({
+      maintenance: this.state.maintenance.map(maint => {
+        if (maint.description === description) {
+          maint.completed = !maint.completed;
+          console.log(maint.completed);
+        }
+        return maint;
+      }),
+    });
   };
 
   render() {
@@ -165,7 +191,14 @@ class Dashboard extends Component {
             </Col>
           </Row>
         </Col>
-        <Accordion panels={this.state.panels} />
+        {this.state.maintenance.map(maint => (
+          <li>
+            <input type="checkbox" onChange={() => this.markComplete(maint.description)} />
+            {maint.description}, due mileage {maint.dueMileage}{' '}
+          </li>
+        ))}
+
+        {/* <Accordion panels={this.state.panels} /> */}
       </div>
     );
   }

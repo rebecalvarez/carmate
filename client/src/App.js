@@ -15,11 +15,10 @@ export default function App() {
     <BrowserRouter>
       <Switch>
         {/* <Route exact path="/dashboard" component={DashboardLayout} /> */}
-        <Route exact path="/"component={Landing} />
+        <Route exact path="/" component={Landing} />
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/repair" component={Repair} />
         <Route exact path="/team" component={Team} />
-        
       </Switch>
     </BrowserRouter>
   );
