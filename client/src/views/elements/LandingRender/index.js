@@ -4,6 +4,7 @@ import Icon from './images/iconcheck.png';
 import GoogleLogin from 'react-google-login';
 import Login from '../../../vibe/components/Login/Login'
 
+
 function LandingRender(props) {
   return (
     <div className="container ">
@@ -62,7 +63,6 @@ function LandingRender(props) {
           <h4 className="rendersubtitle">
             Create an account to see more details...
             <Login />
-            
           </h4>
         </div>
       ) : null}
