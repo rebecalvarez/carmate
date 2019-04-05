@@ -17,15 +17,18 @@ class Dashboard extends Component {
       {
         label: 'Maintenance',
         content: ['Maintenance Information Not Available'],
+        isCompleted: false
       },
       {
         label: 'Recalls',
         content: ['Recalls Information Not Available'],
+        isCompleted: false
       },
       {
         label: 'Upcoming Repairs',
         content:
           ['Upcoming Repairs Information Not Available'],
+          isCompleted: false
       },
       // {
       //   label: 'Technical Service Bulletin',

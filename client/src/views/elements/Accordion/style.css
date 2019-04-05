@@ -98,3 +98,14 @@
 .panel:not(:last-child) {
   margin-bottom: 3px;
 }
+
+.item {
+  padding-top:3px;
+  color: rgb(67, 74, 78);
+  padding-left: 10px;
+
+}
+.check-box {
+  margin-top: 10px;
+  padding-left: 10px;
+}

@@ -46,11 +46,26 @@ class Panel extends Component {
           {element}
           </ul> */}
           {/* {content} */}
-              <ul>
+          <table class="table table-hover">
      {
-      content.map((item, index) => <li key={index}>{item}</li>)
+      content.map((item, index) => 
+      
+      <tr key={index}>  <div className="check-box"><div className="input-group mb-3 ">
+      <div className="input-group-prepend ">
+        <div className="input-group-text">
+          <input type="checkbox" aria-label="Checkbox for following text input"></input>
+        </div>
+      </div>
+     <span className='item' >{item}</span>
+    </div> 
+    </div>
+</tr>
+
+      
+      
+      )
     }
-   </ul>
+   </table>
         
           </div>
         </div>
