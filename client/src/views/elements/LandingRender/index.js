@@ -2,6 +2,7 @@ import React from 'react';
 import './style.css';
 import Icon from './images/iconcheck.png';
 import GoogleLogin from 'react-google-login';
+import Login from '../../../vibe/components/Login/Login'
 
 function LandingRender(props) {
   return (
@@ -60,7 +61,8 @@ function LandingRender(props) {
         <div>
           <h4 className="rendersubtitle">
             Create an account to see more details...
-            <GoogleLogin />
+            <Login />
+            
           </h4>
         </div>
       ) : null}
