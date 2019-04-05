@@ -8,7 +8,7 @@ import Logo from './images/CARMATE-Logo-horizontal-web2.png';
 import MaintIcon from './images/maint-sm.png';
 import { Col, Row } from 'reactstrap';
 import API from '../../utils/API';
-
+import axios from "axios";
 // This is an example of the panels information displayed
 
 class Dashboard extends Component {
@@ -45,7 +45,32 @@ class Dashboard extends Component {
     model: '',
     year: '',
     vin: '',
+    userData: {}
   };
+
+  componentDidMount = (data) => {
+      // var allCookies = document.cookie;
+      // console.log("all cookies", allCookies);
+
+      var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)tokenId\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+      // var token = document.cookie.tokenId;
+      var currentUrl = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + cookieValue;
+      console.log("component did mount", cookieValue)
+      axios
+          .get(currentUrl, {
+              headers: {
+                  Authorization: cookieValue,
+              }
+          })
+          .then(function (response) {
+              // console.log(response.data);
+              console.log(response.data.data);
+          })
+          .catch(err =>
+              console.log(err.message, 'no available fields for this model!')
+          );
+  
+  }
 
   getMaintenance = (year, make, model, mileage, vin) => {
     

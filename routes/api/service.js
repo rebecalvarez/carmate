@@ -61,6 +61,7 @@ router.get('/getMaintenance', (req, res) => {
     .then(function(response) {
       // Starting object to send to DB
       const maintenanceData = {};
+      maintenanceData.userEmail = document.cookie.replace(/(?:(?:^|.*;\s*)tokenId\s*\=\s*([^;]*).*$)|^.*$/, '$1');
       // Array for maintenance services with its appropriate properties
       maintenanceData.maintenanceServices = [];
       for(var i = 0; i < response.data.data.length; i++) {

@@ -19,19 +19,22 @@ export default class Login extends Component {
     }
 
     responseGoogle = response => {
-        //setting userData to the profile object res from Google and then creating another object for the accessToken
+        //setting userData to the profile object res from Google and then creating another object for the tokenId
         let userData = {};
         userData = response.profileObj;
-        const accessToken = {};
-        accessToken.accessToken = response.accessToken;
-        //combining the accessToken object with the user profile object into new Object newUserData
-        const newUserData = Object.assign(userData, accessToken);
+        const tokenId = {};
+        tokenId.tokenId = response.tokenId;
+        //combining the tokenId object with the user profile object into new Object newUserData
+        const newUserData = Object.assign(userData, tokenId);
         console.log(newUserData);
         this.setState({ userData: newUserData });
         //saving newObj with access token to userData
         API.saveUser(this.state.userData);
+        document.cookie = `tokenId=${this.state.userData.email}`;
         document.location.href = '/dashboard';
     };
+
+    
 
     logout = () => {
         this.setState({
@@ -41,7 +44,7 @@ export default class Login extends Component {
             token: ''
         });
     };
-    
+
     onFailure = (error) => {
         alert(error);
     };

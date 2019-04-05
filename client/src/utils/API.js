@@ -74,9 +74,9 @@ export default {
     return axios.post('api/user', userData);
   },
 
-  redirectUser: () => {
-    return axios.get('/dashboard');
-  }
+  // getUser: () => {
+  //   return axios.get('api/user', userData);
+  // }
 
 
 
