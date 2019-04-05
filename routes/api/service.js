@@ -22,8 +22,8 @@ router.get('/availableFields', (req, res) => {
   // if vin is used, use vin and mileage to search CarMD
   req.query.vin
     ? (queryURL = BASEURL + vin + mileage)
-    // if no vin, use year make model and mileage to search CarMD
-    : (queryURL = BASEURL + year + make + model + mileage);
+    : // if no vin, use year make model and mileage to search CarMD
+    (queryURL = BASEURL + year + make + model + mileage);
   console.log(queryURL);
   axios
     .get(queryURL, {
@@ -56,8 +56,8 @@ router.get('/getMaintenance', (req, res) => {
   // If vin is present, use vin and mileage to search CarMD
   req.query.vin
     ? (queryURL = BASEURL + vin + mileage)
-    // if no vin, use year make model and mileage to search CarMD
-    : (queryURL = BASEURL + year + make + model + mileage);
+    : // if no vin, use year make model and mileage to search CarMD
+    (queryURL = BASEURL + year + make + model + mileage);
   axios
     .get(queryURL, {
       headers: {
@@ -72,11 +72,12 @@ router.get('/getMaintenance', (req, res) => {
       // maintenanceData.userEmail = document.cookie.replace(/(?:(?:^|.*;\s*)tokenId\s*\=\s*([^;]*).*$)|^.*$/, '$1');
       // Array for maintenance services with its appropriate properties
       maintenanceData.maintenanceServices = [];
-      for(var i = 0; i < response.data.data.length; i++) {
+      for (var i = 0; i < response.data.data.length; i++) {
         maintenanceServiceItem = {};
         maintenanceServiceItem.description = response.data.data[i].desc;
         maintenanceServiceItem.dueMileage = response.data.data[i].due_mileage;
-        maintenanceServiceItem.totalCost = response.data.data[i].repair.total_cost;
+        maintenanceServiceItem.totalCost =
+          response.data.data[i].repair.total_cost;
         maintenanceServiceItem.completed = false;
         maintenanceData.maintenanceServices.push(maintenanceServiceItem);
       }
@@ -89,9 +90,10 @@ router.get('/getMaintenance', (req, res) => {
         .save(maintenanceData)
         .then(function(dbServices) {
           // Mapping through array of maintenance services along with descritpion and due mileage
-          const dbResponse = dbServices.ops[0].maintenanceServices.map(
-            data => `${data.description} at ${data.dueMileage} for average cost of ${data.totalCost}`
-          );
+          const dbResponse = dbServices.ops[0];
+          // .maintenanceServices.map(
+          //   data => `${data.description} at ${data.dueMileage} for average cost of ${data.totalCost}`
+          // );
           // Sending response to Client
           res.json(dbResponse);
         })
@@ -116,8 +118,8 @@ router.get('/getRecalls', (req, res) => {
   // if vin is present, use vin and mileage to search CarMD
   req.query.vin
     ? (queryURL = BASEURL + vin)
-    // if no vin, use year make model and mileage to search CarMD
-    : (queryURL = BASEURL + year + make + model);
+    : // if no vin, use year make model and mileage to search CarMD
+    (queryURL = BASEURL + year + make + model);
   // console.log(queryURL);
   axios
     .get(queryURL, {
@@ -136,7 +138,8 @@ router.get('/getRecalls', (req, res) => {
       for (var i = 0; i < response.data.data.length; i++) {
         recallServiceItem = {};
         recallServiceItem.description = response.data.data[i].desc;
-        recallServiceItem.correctiveAction = response.data.data[i].corrective_action;
+        recallServiceItem.correctiveAction =
+          response.data.data[i].corrective_action;
         recallServiceItem.consequence = response.data.data[i].consequence;
         recallServiceItem.recallDate = response.data.data[i].recall_date;
         recallServiceItem.completed = false;
@@ -151,9 +154,16 @@ router.get('/getRecalls', (req, res) => {
         .save(recallData)
         .then(function(dbServices) {
           // Loop through recallServices array to map out each item's details
-          const dbResponse = dbServices.ops[0].recallServices.map(
-            data => `${data.description} for CORRECTIVE ACTION: ${data.correctiveAction} at ${data.recallDate}, CONSEQUENCE COULD BE: ${data.consequence}`
-          );
+          const dbResponse = dbServices.ops[0];
+
+          // .recallServices.map(
+          //   data =>
+          //     `${data.description} for CORRECTIVE ACTION: ${
+          //       data.correctiveAction
+          //     } at ${data.recallDate}, CONSEQUENCE COULD BE: ${
+          //       data.consequence
+          //     }`
+          // );
           // console.log(dbResponse);
           res.json(dbResponse);
         })
@@ -179,8 +189,8 @@ router.get('/getUpcoming', (req, res) => {
   // if vin is present, use vin and mileage to search in CarMD
   req.query.vin
     ? (queryURL = BASEURL + vin + mileage)
-    // if no vin, use year make model and mileage to search in CarMD
-    : (queryURL = BASEURL + year + make + model + mileage);
+    : // if no vin, use year make model and mileage to search in CarMD
+    (queryURL = BASEURL + year + make + model + mileage);
   // console.log(queryURL);
   // Axios call to CarMD using query url and .env keys
   axios
@@ -215,9 +225,14 @@ router.get('/getUpcoming', (req, res) => {
         .save(upcomingData)
         .then(function(dbServices) {
           // Map through upcoming services array and get its upcoming service details
-          const dbResponse = dbServices.ops[0].upcomingServices.map(
-            data => `REPAIR: ${data.description} TOTAL COST: ${data.totalCost} PROBABILITY: ${data.probability}`
-          );
+          const dbResponse = dbServices.ops[0];
+
+          // .upcomingServices.map(
+          //   data =>
+          //     `REPAIR: ${data.description} TOTAL COST: ${
+          //       data.totalCost
+          //     } PROBABILITY: ${data.probability}`
+          // );
           // console.log(dbResponse);
           res.json(dbResponse);
         })
@@ -242,8 +257,8 @@ router.get('/getWarranty', (req, res) => {
   // If vin is used by user, then query URL will use vin
   req.query.vin
     ? (queryURL = BASEURL + vin)
-    // If no vin, use year make and model for query URL
-    : (queryURL = BASEURL + year + make + model);
+    : // If no vin, use year make and model for query URL
+    (queryURL = BASEURL + year + make + model);
   // console.log(queryURL);
   // Axios call using query URl and .env keys
   axios
@@ -279,9 +294,13 @@ router.get('/getWarranty', (req, res) => {
         .save(warrantyData)
         .then(function(dbServices) {
           // Map through warranty services to send to client
-          const dbResponse = dbServices.ops[0].warrantyServices.map(
-            data => `WARRANTY: ${data.type} CRITERIA: ${data.criteria} MAX MILES: ${data.maxMiles} MAX YEAR: ${data.maxYear}`
-          );
+          const dbResponse = dbServices.ops[0];
+          // .warrantyServices.map(
+          //   data =>
+          //     `WARRANTY: ${data.type} CRITERIA: ${data.criteria} MAX MILES: ${
+          //       data.maxMiles
+          //     } MAX YEAR: ${data.maxYear}`
+          // );
           console.log(dbResponse);
           res.json(dbResponse);
         })
