@@ -1,7 +1,9 @@
 import React from 'react';
 import './style.css';
 import Icon from './images/iconcheck.png';
-import Login from '../../../vibe/components/Login/Login';
+import GoogleLogin from 'react-google-login';
+import Login from '../../../vibe/components/Login/Login'
+
 
 function LandingRender(props) {
   return (

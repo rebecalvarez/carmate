@@ -8,11 +8,10 @@ import Logo from './images/CARMATE-Logo-horizontal-web2.png';
 import MaintIcon from './images/maint-sm.png';
 import { Col, Row } from 'reactstrap';
 import API from '../../utils/API';
-
-// This is an example of the panels information displayed
-
+import axios from "axios";
 class Dashboard extends Component {
   state = {
+    // This is an example of the panels information displayed
     panels: [
       {
         label: 'Maintenance',
@@ -30,6 +29,7 @@ class Dashboard extends Component {
           ['Upcoming Repairs Information Not Available'],
           isCompleted: false
       },
+      // NICE TO HAVE FOR NEXT DEV PHASE
       // {
       //   label: 'Technical Service Bulletin',
       //   content:
@@ -48,11 +48,31 @@ class Dashboard extends Component {
     model: '',
     year: '',
     vin: '',
+    userEmail: ''
   };
 
-  getMaintenance = (year, make, model, mileage, vin) => {
-    
-    API.getMaintenance(year, make, model, mileage, vin)
+  componentDidMount = (data) => {
+      // Get cookie value to associate services with user
+      var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)tokenId\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+      console.log("Cookie Value (ln 54):", cookieValue);
+      this.setState({ userEmail: cookieValue });
+      // axios
+      //     .get(currentUrl, {
+      //         headers: {
+      //             Authorization: cookieValue,
+      //         }
+      //     })
+      //     .then(function (response) {
+      //         // console.log(response.data);
+      //         console.log("helloo" ,response.data.data);
+      //     })
+      //     .catch(err =>
+      //         console.log(err.message, 'no available fields for this model!')
+      //     );
+  }
+
+  getMaintenance = (year, make, model, mileage, vin, userEmail) => {
+    API.getMaintenance(year, make, model, mileage, vin, userEmail)
       .then(res => {
         console.log ('THIS IS RES.DATA:  ',res.data)
         const obj = this.state.panels;
@@ -62,19 +82,18 @@ class Dashboard extends Component {
       .catch(err => console.log(err));
   };
 
-  getRecalls = (year, make, model, vin) => {
-    API.getRecalls(year, make, model, vin)
+  getRecalls = (year, make, model, vin, userEmail) => {
+    API.getRecalls(year, make, model, vin, userEmail)
       .then(res => {
         const obj = this.state.panels;
         obj[1].content = res.data;
         this.setState({ panels: obj });
       })
-
       .catch(err => console.log(err));
   };
 
-  getUpcoming = (year, make, model, mileage, vin) => {
-    API.getUpcoming(year, make, model, mileage, vin)
+  getUpcoming = (year, make, model, mileage, vin, userEmail) => {
+    API.getUpcoming(year, make, model, mileage, vin, userEmail)
       .then(res => {
         const obj = this.state.panels;
         obj[2].content = res.data;
@@ -84,8 +103,8 @@ class Dashboard extends Component {
       .catch(err => console.log(err));
   };
 
-  getWarranty = (year, make, model, vin) => {
-    API.getWarranty(year, make, model, vin)
+  getWarranty = (year, make, model, vin, userEmail) => {
+    API.getWarranty(year, make, model, vin, userEmail)
       .then(res => {
         const obj = this.state.panels;
         obj[3].content = res.data;
@@ -105,10 +124,10 @@ class Dashboard extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();    
-    this.getMaintenance(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin);
-    this.getRecalls(this.state.year, this.state.make, this.state.model, this.state.vin);
-    this.getUpcoming(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin);
-    this.getWarranty(this.state.year, this.state.make, this.state.model, this.state.vin);
+    this.getMaintenance(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin, this.state.userEmail);
+    this.getRecalls(this.state.year, this.state.make, this.state.model, this.state.vin, this.state.userEmail);
+    this.getUpcoming(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin, this.state.userEmail);
+    this.getWarranty(this.state.year, this.state.make, this.state.model, this.state.vin, this.state.userEmail);
   };
 
   render() {

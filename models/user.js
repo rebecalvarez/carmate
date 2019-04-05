@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 var userSchema = new Schema({
   //added accessToken to user schema
-  accessToken: {
+  tokenId: {
     type: String,
     trim: true
   },
