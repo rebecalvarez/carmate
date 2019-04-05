@@ -58,7 +58,10 @@ function LandingRender(props) {
 
       {props.upcoming || props.tsb || props.maint || props.recall || props.warranty ? (
         <div>
-          <h4 className="rendersubtitle">Create an account to see more details...</h4>
+          <h4 className="rendersubtitle">
+            Create an account to see more details...
+            <GoogleLogin />
+          </h4>
         </div>
       ) : null}
     </div>
