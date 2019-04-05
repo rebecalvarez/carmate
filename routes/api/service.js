@@ -9,7 +9,7 @@ const db = require('../../models');
 
 router.get('/availableFields', (req, res) => {
   const BASEURL = 'https://api.carmd.com/v3.0/fields?';
-  console.log(req.query);
+  console.log('req query', req.query);
   let queryURL;
   const year = `year=${req.query.year}&`;
   const make = `make=${req.query.make}&`;

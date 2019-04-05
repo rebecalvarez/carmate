@@ -22,7 +22,8 @@ var userSchema = new Schema({
   googleId: {
     type: String,
     trim: true
-  }
+  },
+  services: { type: Schema.Types.ObjectId, ref: 'Services' }
 });
 
 const User = mongoose.model('user', userSchema);

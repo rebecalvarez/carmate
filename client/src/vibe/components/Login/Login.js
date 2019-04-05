@@ -49,23 +49,24 @@ export default class Login extends Component {
         alert(error);
     };
 
-    render() {
-        return (
-            <div>
-                <GoogleLogin
-                    clientId={process.env.REACT_APP_GOOGLE_USER_CLIENTID}
-                    buttonText="Login"
-                    render={renderProps => (
-                        <Nav.Link onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                            Login / Register
-                         </Nav.Link>
-                    )}
-                    onSuccess={this.responseGoogle}
-                    onFailure={this.onFailure}
-                    cookiePolicy={'single_host_origin'}
 
-                />
-            </div>
-        );
-    }
+
+  render() {
+    return (
+      <div>
+        <GoogleLogin
+          clientId={process.env.REACT_APP_GOOGLE_USER_CLIENTID}
+          buttonText="Login"
+          render={renderProps => (
+            <Nav.Link onClick={renderProps.onClick} disabled={renderProps.disabled}>
+              Login / Register
+            </Nav.Link>
+          )}
+          onSuccess={this.responseGoogle}
+          onFailure={this.responseGoogle}
+          cookiePolicy={'single_host_origin'}
+        />
+      </div>
+    );
+  }
 }

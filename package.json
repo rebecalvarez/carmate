@@ -55,6 +55,7 @@
     "passport-google-token": "^0.1.2",
     "prop-types": "^15.7.2",
     "react-bootstrap": "^1.0.0-beta.5",
+    "react-cookie": "^3.1.2",
     "react-dom": "^16.8.5",
     "react-final-form": "^4.1.0",
     "react-geocode": "^0.1.2",

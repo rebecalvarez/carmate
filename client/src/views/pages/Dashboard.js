@@ -45,7 +45,8 @@ class Dashboard extends Component {
     model: '',
     year: '',
     vin: '',
-    userData: {}
+    userData: {},
+    userEmail: ''
   };
 
   componentDidMount = (data) => {
@@ -64,7 +65,7 @@ class Dashboard extends Component {
           })
           .then(function (response) {
               // console.log(response.data);
-              console.log(response.data.data);
+              console.log("helloo" ,response.data.data);
           })
           .catch(err =>
               console.log(err.message, 'no available fields for this model!')
