@@ -1,75 +1,18 @@
 import React, { Component } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import CarForm from '../elements/CarForm';
+
 import Logo from './images/CARMATE-Logo-horizontal-web2.png';
-import API from '../../utils/API';
+
 // Removed Col from reactstrap imports
-import { Row } from 'reactstrap';
-import LandingRender from '../elements/LandingRender';
+import { Row, Col } from 'reactstrap';
+
 import Login from '../../vibe/components/Login/Login';
-import './style/landingstyle.css';
-import './images/landingback.png';
+import Card from '@bit/semantic-org.semantic-ui-react.card'
+import Icon from '@bit/semantic-org.semantic-ui-react.icon'
+import Image from '@bit/semantic-org.semantic-ui-react.image'
 
 class Team extends Component {
-  state = {
-    upcoming: '',
-    tsb: '',
-    maint: '',
-    recall: '',
-    warranty: '',
-    mileage: '',
-    make: '',
-    model: '',
-    year: '',
-    vin: '',
-    userData: {},
-  };
-
-  getFields = (year, make, model, mileage, vin) => {
-    //upcoming repairs, tsb, maintenance, recall, warranty
-    API.getAvailableFields(year, make, model, mileage, vin)
-      .then(res =>
-        this.setState({
-          upcoming: res.data.upcoming ? 'Yes' : 'No',
-          tsb: res.data.tsb ? 'Yes' : 'No',
-          maint: res.data.maint ? 'Yes' : 'No',
-          recall: res.data.recall ? 'Yes' : 'No',
-          warranty: res.data.warranty ? 'Yes' : 'No',
-        })
-      )
-
-      .catch(err => console.log(err));
-  };
-
-  handleInputChange = event => {
-    const value = event.target.value;
-    const name = event.target.name;
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  handleFormSubmit = event => {
-    event.preventDefault();
-    this.setState({
-      upcoming: '',
-      tsb: '',
-      maint: '',
-      recall: '',
-      warranty: '',
-    });
-    this.getFields(this.state.year, this.state.make, this.state.model, this.state.mileage, this.state.vin);
-  };
-
-  saveUser = (response) => {
-    
-    console.log("11", response)
-    API.saveUser({
-      userData: this.state.userData
-    }).catch(err => console.log(err));
-
-  };
 
   render() {
     
@@ -92,37 +35,92 @@ class Team extends Component {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <div className='picbackground'>
+        
 <div className='container'>
 
 
-          <Row className="landingform">
-          
-        <CarForm
-          handleFormSubmit={this.handleFormSubmit}
-          onChange={this.handleInputChange}
-          getFields={this.getFields}
-          year={this.state.year}
-          vin={this.state.vin}
-          model={this.state.model}
-          make={this.state.make}
-          mileage={this.state.mileage}
-        />
-
-
+          <Row>
+          <Col> <Card>
+    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' />
+    <Card.Content>
+      <Card.Header>Matthew</Card.Header>
+      <Card.Meta>
+        <span className='date'>Joined in 2015</span>
+      </Card.Meta>
+      <Card.Description>Matthew is a musician living in Nashville.</Card.Description>
+    </Card.Content>
+    <Card.Content extra>
+      <a>
+        <Icon name='user' />
+        22 Friends
+      </a>
+    </Card.Content>
+  </Card>
+)
+</Col>
+          <Col> <Card>
+    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' />
+    <Card.Content>
+      <Card.Header>Matthew</Card.Header>
+      <Card.Meta>
+        <span className='date'>Joined in 2015</span>
+      </Card.Meta>
+      <Card.Description>Matthew is a musician living in Nashville.</Card.Description>
+    </Card.Content>
+    <Card.Content extra>
+      <a>
+        <Icon name='user' />
+        22 Friends
+      </a>
+    </Card.Content>
+  </Card>
+)
+</Col>
+          </Row>
+          <Row>
+          <Col> <Card>
+    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' />
+    <Card.Content>
+      <Card.Header>Matthew</Card.Header>
+      <Card.Meta>
+        <span className='date'>Joined in 2015</span>
+      </Card.Meta>
+      <Card.Description>Matthew is a musician living in Nashville.</Card.Description>
+    </Card.Content>
+    <Card.Content extra>
+      <a>
+        <Icon name='user' />
+        22 Friends
+      </a>
+    </Card.Content>
+  </Card>
+)
+</Col>
+          <Col> <Card>
+    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' />
+    <Card.Content>
+      <Card.Header>Matthew</Card.Header>
+      <Card.Meta>
+        <span className='date'>Joined in 2015</span>
+      </Card.Meta>
+      <Card.Description>Matthew is a musician living in Nashville.</Card.Description>
+    </Card.Content>
+    <Card.Content extra>
+      <a>
+        <Icon name='user' />
+        22 Friends
+      </a>
+    </Card.Content>
+  </Card>
+)
+</Col>
           </Row>
         
 </div>
 </div>
-        <LandingRender
-          upcoming={this.state.upcoming}
-          tsb={this.state.tsb}
-          maint={this.state.maint}
-          recall={this.state.recall}
-          warranty={this.state.warranty}
-        />
+     
 
-      </div>
+
     );
   }
 }

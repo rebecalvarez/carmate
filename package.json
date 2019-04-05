@@ -31,6 +31,7 @@
     "npm": "6.x"
   },
   "dependencies": {
+    "@bit/semantic-org.semantic-ui-react.card": "^0.86.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
@@ -50,6 +51,7 @@
     "mdbreact": "^4.11.0",
     "mongoose": "^5.3.16",
     "morgan": "^1.9.1",
+    "npm": "^6.9.0",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^2.0.0",
     "prop-types": "^15.7.2",
