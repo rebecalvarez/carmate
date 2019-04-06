@@ -1,0 +1,27 @@
+.content{
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.panel {
+    background-color: #ED7715;
+    color: white;
+    font-weight: bold;
+    padding: 3px;
+    border-radius: 5px;
+    margin: 10px 0px 10px 0px;
+}
+
+.title {
+    margin-left: 15px;
+}
+
+.list {
+    list-style-type: none;
+    margin-left: 20px;
+}
+
+.check-box{
+    padding-right: 15px;
+}
