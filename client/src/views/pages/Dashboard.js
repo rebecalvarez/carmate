@@ -52,39 +52,43 @@ class Dashboard extends Component {
     year: '',
     vin: '',
     userEmail: '',
-    userExists: false
+    userExists: false,
   };
 
-  componentDidMount = (data) => {
+  componentDidMount = data => {
     // Get cookie value to associate services with user
-    var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)tokenId\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-    console.log("Cookie Value (ln 54):", cookieValue);
+    var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)tokenId\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+    console.log('Cookie Value (ln 54):', cookieValue);
     this.setState({ userEmail: cookieValue });
     axios
       .get('api/userservices', cookieValue)
-      .then((response => {
-        console.log(response)
+      .then(response => {
+        console.log(response.data[0].maintenanceServices);
+        this.setState({
+          maintenance: response.data[0].maintenanceServices,
+          // recalls: response.data[0].recallServices,
+          // upcoming: response.data[0].upcomingServices,
+          // warranty: response.data[0].warrantyServices,
+        });
+
         // need to get response.data[0-4].nameOfServiceCategory
-        if(response.data.length > 0){
+        if (response.data.length > 0) {
           this.setState({
-            userExists: true
+            userExists: true,
           });
         }
         for (var i = 0; i < response.data.length; i++) {
-          if(response.data[i].category === 'warranty'){
+          if (response.data[i].category === 'warranty') {
             // let warrantyObject = this.state.panels[3]
             // console.log(response.data[i].warrantyServices)
             // warrantyObject.content = response.data[i].warrantyServices;
-            this.setState({
-              warranty: response.data[i].warrantyServices
-            })
-          } else if(response.data[i].category === 'maintenance'){
-            let maintenanceObject = this.state.panels[0]
-            maintenanceObject.content = response.data[i].maintenanceServices;
+            // } else if (response.data[i].category === 'maintenance') {
+            //   let maintenanceObject = this.state.panels[0];
+            //   maintenanceObject.content = response.data[i].maintenanceServices;
             // this.setState({ panels[0]: response.data[i].maintenanceServices })
-            this.setState({
-              panels: update(this.state.panels, {0: {content: {$set: 'updated field name'}}})
-            })
+            // this.setState({
+            //   panels: update(this.state.panels, { 0: { content: { $set: 'updated field name' } } }),
+            // });
           }
           // switch (response.data[i]) {
           //   case response.data[i].category = 'warranty':
@@ -108,10 +112,9 @@ class Dashboard extends Component {
           //     console.log("fuck this shit")
           // }
         }
-        
-      }))
-      .catch(error => console.log(error.message, 'front end API userservices not working'))
-  }
+      })
+      .catch(error => console.log(error.message, 'front end API userservices not working'));
+  };
 
   getMaintenance = (year, make, model, mileage, vin, userEmail) => {
     API.getMaintenance(year, make, model, mileage, vin, userEmail)
@@ -201,7 +204,7 @@ class Dashboard extends Component {
           console.log(maint.completed);
         }
         return maint;
-      })
+      }),
     });
   };
 
@@ -285,32 +288,38 @@ class Dashboard extends Component {
         >
           <div className="maintenance" style={{ display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ textDecoration: 'underline', fontWeight: 'bold' }}>Maintenance</h3>
-            {this.state.maintenance.map(maint => (
-              <li style={{ listStyleType: 'none' }}>
-                <input type="checkbox" onChange={() => this.markComplete(maint.description)} />
-                {maint.description}, due mileage {maint.dueMileage}{' '}
-              </li>
-            ))}
+            {this.state.maintenance.length > 0
+              ? this.state.maintenance.map(maint => (
+                  <li style={{ listStyleType: 'none' }}>
+                    <input type="checkbox" onChange={() => this.markComplete(maint.description)} />
+                    {maint.description}, due mileage {maint.dueMileage}{' '}
+                  </li>
+                ))
+              : null}
           </div>
 
           <div className="upcoming" style={{ display: 'flex', flexDirection: 'column', marginLeft: '5%' }}>
             <h3 style={{ textDecoration: 'underline', fontWeight: 'bold' }}>Upcoming Services</h3>
-            {this.state.upcoming.map(upcoming => (
-              <li style={{ listStyleType: 'none' }}>
-                <input type="checkbox" onChange={() => this.markCompleteUpcoming(upcoming.description)} />
-                {upcoming.description}, total cost {upcoming.totalCost}{' '}
-              </li>
-            ))}
+            {this.state.upcoming.length > 0
+              ? this.state.upcoming.map(upcoming => (
+                  <li style={{ listStyleType: 'none' }}>
+                    <input type="checkbox" onChange={() => this.markCompleteUpcoming(upcoming.description)} />
+                    {upcoming.description}, total cost {upcoming.totalCost}{' '}
+                  </li>
+                ))
+              : null}
           </div>
 
           <div className="warranty" style={{ display: 'flex', flexDirection: 'column', marginLeft: '5%' }}>
             <h3 style={{ textDecoration: 'underline', fontWeight: 'bold' }}>Warranty Services</h3>
-            {this.state.warranty.map(warranty => (
-              <li style={{ listStyleType: 'none' }}>
-                <input type="checkbox" onChange={() => this.markCompleteWarranty(warranty.type)} />
-                warranty: {warranty.type}, criteria: {warranty.criteria}{' '}
-              </li>
-            ))}
+            {this.state.warranty.length > 0
+              ? this.state.warranty.map(warranty => (
+                  <li style={{ listStyleType: 'none' }}>
+                    <input type="checkbox" onChange={() => this.markCompleteWarranty(warranty.type)} />
+                    warranty: {warranty.type}, criteria: {warranty.criteria}{' '}
+                  </li>
+                ))
+              : null}
           </div>
 
           {/* <Accordion panels={this.state.panels} /> */}
@@ -320,12 +329,14 @@ class Dashboard extends Component {
           style={{ display: 'flex', flexDirection: 'column', marginTop: '15%', marginLeft: '10%' }}
         >
           <h3 style={{ textDecoration: 'underline', fontWeight: 'bold' }}>Safety Recalls</h3>
-          {this.state.recalls.map(recall => (
-            <li style={{ listStyleType: 'none' }}>
-              <input type="checkbox" onChange={() => this.markCompleteRecall(recall.recallDate)} />
-              recall: {recall.description}, date: {recall.recallDate}{' '}
-            </li>
-          ))}
+          {this.state.recalls.length > 0
+            ? this.state.recalls.map(recall => (
+                <li style={{ listStyleType: 'none' }}>
+                  <input type="checkbox" onChange={() => this.markCompleteRecall(recall.recallDate)} />
+                  recall: {recall.description}, date: {recall.recallDate}{' '}
+                </li>
+              ))
+            : null}
         </div>
       </div>
     );
