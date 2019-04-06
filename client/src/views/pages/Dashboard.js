@@ -11,36 +11,37 @@ import API from '../../utils/API';
 import axios from 'axios';
 import { ToggleRadioButtonChecked } from 'material-ui/svg-icons';
 import fullscreenExit from 'material-ui/svg-icons/navigation/fullscreen-exit';
+import update from 'react-addons-update';
 class Dashboard extends Component {
   state = {
     // This is an example of the panels information displayed
-    panels: [
-      {
-        label: 'Maintenance',
-        content: ['Maintenance Information Not Available'],
-        isCompleted: false,
-      },
-      {
-        label: 'Recalls',
-        content: ['Recalls Information Not Available'],
-        isCompleted: false,
-      },
-      {
-        label: 'Upcoming Repairs',
-        content: ['Upcoming Repairs Information Not Available'],
-        isCompleted: false,
-      },
-      // NICE TO HAVE FOR NEXT DEV PHASE
-      // {
-      //   label: 'Technical Service Bulletin',
-      //   content:
-      //     "Many dyslexic people find it helpful to swap out a website's typeface for something like OpenDyslexic. But icon fonts get replaced as well, which makes for a frustratingly broken experience.",
-      // },
-      {
-        label: 'Vehicle Warranty',
-        content: ['Vehicle Warranty Information Not Available'],
-      },
-    ],
+    // panels: [
+    //   {
+    //     label: 'Maintenance',
+    //     content: ['Maintenance Information Not Available'],
+    //     isCompleted: false,
+    //   },
+    //   {
+    //     label: 'Recalls',
+    //     content: ['Recalls Information Not Available'],
+    //     isCompleted: false,
+    //   },
+    //   {
+    //     label: 'Upcoming Repairs',
+    //     content: ['Upcoming Repairs Information Not Available'],
+    //     isCompleted: false,
+    //   },
+    //   // NICE TO HAVE FOR NEXT DEV PHASE
+    //   // {
+    //   //   label: 'Technical Service Bulletin',
+    //   //   content:
+    //   //     "Many dyslexic people find it helpful to swap out a website's typeface for something like OpenDyslexic. But icon fonts get replaced as well, which makes for a frustratingly broken experience.",
+    //   // },
+    //   {
+    //     label: 'Vehicle Warranty',
+    //     content: ['Vehicle Warranty Information Not Available'],
+    //   },
+    // ],
     maintenance: [],
     upcoming: [],
     warranty: [],
@@ -51,27 +52,66 @@ class Dashboard extends Component {
     year: '',
     vin: '',
     userEmail: '',
+    userExists: false
   };
 
-  componentDidMount = data => {
+  componentDidMount = (data) => {
     // Get cookie value to associate services with user
-    var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)tokenId\s*\=\s*([^;]*).*$)|^.*$/, '$1');
-    console.log('Cookie Value (ln 54):', cookieValue);
+    var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)tokenId\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    console.log("Cookie Value (ln 54):", cookieValue);
     this.setState({ userEmail: cookieValue });
-    // axios
-    //     .get(currentUrl, {
-    //         headers: {
-    //             Authorization: cookieValue,
-    //         }
-    //     })
-    //     .then(function (response) {
-    //         // console.log(response.data);
-    //         console.log("helloo" ,response.data.data);
-    //     })
-    //     .catch(err =>
-    //         console.log(err.message, 'no available fields for this model!')
-    //     );
-  };
+    axios
+      .get('api/userservices', cookieValue)
+      .then((response => {
+        console.log(response)
+        // need to get response.data[0-4].nameOfServiceCategory
+        if(response.data.length > 0){
+          this.setState({
+            userExists: true
+          });
+        }
+        for (var i = 0; i < response.data.length; i++) {
+          if(response.data[i].category === 'warranty'){
+            // let warrantyObject = this.state.panels[3]
+            // console.log(response.data[i].warrantyServices)
+            // warrantyObject.content = response.data[i].warrantyServices;
+            this.setState({
+              warranty: response.data[i].warrantyServices
+            })
+          } else if(response.data[i].category === 'maintenance'){
+            let maintenanceObject = this.state.panels[0]
+            maintenanceObject.content = response.data[i].maintenanceServices;
+            // this.setState({ panels[0]: response.data[i].maintenanceServices })
+            this.setState({
+              panels: update(this.state.panels, {0: {content: {$set: 'updated field name'}}})
+            })
+          }
+          // switch (response.data[i]) {
+          //   case response.data[i].category = 'warranty':
+          //     let obj = this.state.panels;
+          //     obj[3].content = response.data[i].warrantyServices;
+          //     this.setState({ panels: obj });
+          //   case response.data[i].category = 'recall':
+          //     obj = this.state.panels;
+          //     obj[1].content = response.data[i].recallServices
+          //     this.setState({ panels: obj });
+          //   case response.data[i].category = 'upcoming':
+          //     obj = this.state.panels;
+          //     obj[2].content = response.data[i].upcomingServices
+          //     this.setState({ panels: obj });
+          //   case response.data[i].category = 'maintenance':
+          //     obj = this.state.panels;
+          //     obj[0].content = response.data[i].maintenanceServices
+          //     this.setState({ panels: obj });
+          //     break
+          //   default:
+          //     console.log("fuck this shit")
+          // }
+        }
+        
+      }))
+      .catch(error => console.log(error.message, 'front end API userservices not working'))
+  }
 
   getMaintenance = (year, make, model, mileage, vin, userEmail) => {
     API.getMaintenance(year, make, model, mileage, vin, userEmail)
@@ -161,7 +201,7 @@ class Dashboard extends Component {
           console.log(maint.completed);
         }
         return maint;
-      }),
+      })
     });
   };
 
