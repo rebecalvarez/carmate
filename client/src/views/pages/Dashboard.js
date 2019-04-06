@@ -63,13 +63,13 @@ class Dashboard extends Component {
     axios
       .get('api/userservices', cookieValue)
       .then(response => {
-        console.log(response.data[0].maintenanceServices);
-        this.setState({
-          maintenance: response.data[0].maintenanceServices,
-          // recalls: response.data[0].recallServices,
-          // upcoming: response.data[0].upcomingServices,
-          // warranty: response.data[0].warrantyServices,
-        });
+        // console.log(response.data[0].warrantyServices);
+        // this.setState({
+        //   // maintenance: response.data[0].maintenanceServices,
+        //   // recalls: response.data[0].recallServices,
+        //   // upcoming: response.data[0].upcomingServices,
+        //   warranty: response.data[0].warrantyServices,
+        // });
 
         // need to get response.data[0-4].nameOfServiceCategory
         if (response.data.length > 0) {
@@ -82,35 +82,34 @@ class Dashboard extends Component {
             // let warrantyObject = this.state.panels[3]
             // console.log(response.data[i].warrantyServices)
             // warrantyObject.content = response.data[i].warrantyServices;
-            // } else if (response.data[i].category === 'maintenance') {
-            //   let maintenanceObject = this.state.panels[0];
-            //   maintenanceObject.content = response.data[i].maintenanceServices;
-            // this.setState({ panels[0]: response.data[i].maintenanceServices })
-            // this.setState({
-            //   panels: update(this.state.panels, { 0: { content: { $set: 'updated field name' } } }),
-            // });
+            this.setState({
+              warranty: response.data[i].warrantyServices
+            })
           }
-          // switch (response.data[i]) {
-          //   case response.data[i].category = 'warranty':
-          //     let obj = this.state.panels;
-          //     obj[3].content = response.data[i].warrantyServices;
-          //     this.setState({ panels: obj });
-          //   case response.data[i].category = 'recall':
-          //     obj = this.state.panels;
-          //     obj[1].content = response.data[i].recallServices
-          //     this.setState({ panels: obj });
-          //   case response.data[i].category = 'upcoming':
-          //     obj = this.state.panels;
-          //     obj[2].content = response.data[i].upcomingServices
-          //     this.setState({ panels: obj });
-          //   case response.data[i].category = 'maintenance':
-          //     obj = this.state.panels;
-          //     obj[0].content = response.data[i].maintenanceServices
-          //     this.setState({ panels: obj });
-          //     break
-          //   default:
-          //     console.log("fuck this shit")
-          // }
+          if(response.data[i].category === 'maintenance'){
+            // let maintenanceObject = this.state.panels[0]
+            // maintenanceObject.content = response.data[i].maintenanceServices;
+            // this.setState({ panels[0]: response.data[i].maintenanceServices })
+            this.setState({
+              maintenance: response.data[i].maintenanceServices
+            })
+          }
+          if(response.data[i].category === 'recall'){
+            // let maintenanceObject = this.state.panels[0]
+            // maintenanceObject.content = response.data[i].maintenanceServices;
+            // this.setState({ panels[0]: response.data[i].maintenanceServices })
+            this.setState({
+              recalls: response.data[i].recallServices
+            })
+          }
+          if(response.data[i].category === 'upcoming'){
+            // let maintenanceObject = this.state.panels[0]
+            // maintenanceObject.content = response.data[i].maintenanceServices;
+            // this.setState({ panels[0]: response.data[i].maintenanceServices })
+            this.setState({
+              upcoming: response.data[i].upcomingServices
+            })
+          }
         }
       })
       .catch(error => console.log(error.message, 'front end API userservices not working'));
