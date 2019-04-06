@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import CarForm from '../elements/CarForm';
-import Accordion from '../elements/Accordion';
+// import Accordion from '../elements/Accordion';
 import UserImage from '../elements/UserImage';
 import Logo from './images/CARMATE-Logo-horizontal-web2.png';
 import MaintIcon from './images/maint-sm.png';
 import { Col, Row } from 'reactstrap';
 import API from '../../utils/API';
 import axios from 'axios';
-import { ToggleRadioButtonChecked } from 'material-ui/svg-icons';
-import fullscreenExit from 'material-ui/svg-icons/navigation/fullscreen-exit';
-import update from 'react-addons-update';
+import './style/dashboardstyle.css';
+// import { ToggleRadioButtonChecked } from 'material-ui/svg-icons';
+// import fullscreenExit from 'material-ui/svg-icons/navigation/fullscreen-exit';
+// import update from 'react-addons-update';
 class Dashboard extends Component {
   state = {
     // This is an example of the panels information displayed
@@ -281,7 +282,70 @@ class Dashboard extends Component {
             </Col>
           </Row>
         </Col>
-        <div
+
+<div className='container content'>
+<div>
+  <div className='panel'> <h3 className='title' >Maintenance</h3></div>
+
+
+{this.state.maintenance.length > 0
+              ? this.state.maintenance.map(maint => (
+                  <li className='list'>
+                    <input className='check-box'type="checkbox" onChange={() => this.markComplete(maint.description)} />
+                    {maint.description}, due mileage {maint.dueMileage}{' '}
+                  </li>
+                ))
+              : null}
+
+</div>
+
+<div>
+<div className='panel'> <h3 className='title' >Upcoming Services</h3></div>
+
+{this.state.upcoming.length > 0
+              ? this.state.upcoming.map(upcoming => (
+                  <li className='list'>
+                    <input type="checkbox" onChange={() => this.markCompleteUpcoming(upcoming.description)} />
+                    {upcoming.description}, total cost {upcoming.totalCost}{' '}
+                  </li>
+                ))
+              : null}
+
+</div>
+
+<div>
+<div className='panel'> <h3 className='title' >Warranty Services</h3></div>
+
+{this.state.warranty.length > 0
+              ? this.state.warranty.map(warranty => (
+                  <li className='list'>
+                    <input type="checkbox" onChange={() => this.markCompleteWarranty(warranty.type)} />
+                    warranty: {warranty.type}, criteria: {warranty.criteria}{' '}
+                  </li>
+                ))
+              : null}
+
+</div>
+
+<div>
+<div className='panel'> <h3 className='title' >Safety Recalls</h3></div>
+{this.state.recalls.length > 0
+            ? this.state.recalls.map(recall => (
+                <li className='list'>
+                  <input type="checkbox" onChange={() => this.markCompleteRecall(recall.recallDate)} />
+                  recall: {recall.description}, date: {recall.recallDate}{' '}
+                </li>
+              ))
+            : null}
+
+</div>
+
+
+
+</div>
+
+
+        {/* <div
           className="results"
           style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', marginTop: '5%' }}
         >
@@ -319,10 +383,10 @@ class Dashboard extends Component {
                   </li>
                 ))
               : null}
-          </div>
+          </div> */}
 
           {/* <Accordion panels={this.state.panels} /> */}
-        </div>
+        {/* </div>
         <div
           className="recalls"
           style={{ display: 'flex', flexDirection: 'column', marginTop: '15%', marginLeft: '10%' }}
@@ -336,7 +400,7 @@ class Dashboard extends Component {
                 </li>
               ))
             : null}
-        </div>
+        </div> */}
       </div>
     );
   }
